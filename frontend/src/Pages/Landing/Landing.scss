@@ -1,0 +1,16 @@
+.landing-page {
+    display: flex;
+    height: 100vh;
+    .landing-background {
+        background-color: blue;
+        width: 80%;
+    }
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+        width: 20%;
+    }
+}
