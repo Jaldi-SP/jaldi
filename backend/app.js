@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hash = require('pbkdf2-password')()
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var businessRouter = require('./routes/businesses');
 var session = require('express-session');
 var authenticate = require('./lib/auth');
 var restrict = require('./lib/restrict');
@@ -38,6 +38,7 @@ app.use(function(req, res, next){
 });
 
 app.use('/', indexRouter);
+app.use('/business', businessRouter);
 
 /* istanbul ignore next */
 if (!module.parent) {
