@@ -25,20 +25,21 @@ router.get('/login', function(req, res){
 });
 
 router.post('/login', function (req, res, next) {
-  authenticate(req.body.username, req.body.password, function(err, user){
+  authenticate(req.body.username, req.body.password, function(err, business){
     if (err) return next(err)
-    if (user) {
+    if (business) {
       // Regenerate session when signing in
       // to prevent fixation
       req.session.regenerate(function(){
         // Store the user's primary key
         // in the session store to be retrieved,
         // or in this case the entire user object
-        req.session.user = user;
-        req.session.success = 'Authenticated as ' + user.name
+        req.session.business = business;
+        req.session.success = 'Authenticated as ' + business.name
           + ' click to <a href="/logout">logout</a>. '
           + ' You may now access <a href="/restricted">/restricted</a>.';
-        res.redirect('back');
+        console.log(business.id);
+        res.redirect(`/business/${business.id}`);
       });
     } else {
       req.session.error = 'Authentication failed, please check your '
