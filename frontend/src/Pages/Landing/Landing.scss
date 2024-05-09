@@ -1,16 +1,14 @@
+@import './../../variables.scss';
+
 .landing-page {
     display: flex;
+    justify-content: flex-end;
     height: 100vh;
     .landing-background {
-        background-color: blue;
-        width: 80%;
-    }
-    .login-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: red;
-        width: 20%;
+        background: url(./../../landing_page.webp) no-repeat center center;
+        background-size: auto;
+        background-color: $tiffany-blue;
+        width: calc(100% - $login-container-width); // Subtracting the width of the login-container
+        height: 100vh;
     }
 }

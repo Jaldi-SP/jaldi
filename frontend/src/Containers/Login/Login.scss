@@ -1,0 +1,24 @@
+@import "./../../variables.scss";
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $raisin-black;
+    width: $login-container-width;
+    height: 100vh;
+    .login-form {
+        background-color: $mint-cream;
+        height: 40%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        input, button{
+            width: 50%;
+            margin-bottom: 20px;
+        }
+    }
+}

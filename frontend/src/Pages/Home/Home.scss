@@ -1,0 +1,22 @@
+@import './../../variables.scss';
+
+.home-page {
+    background-color: $tiffany-blue;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        background-color: $mint-cream;
+        font-size: x-large;
+        padding: 20px 50px;
+        border-radius: 10px;
+    }
+    .home-page-info {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 30px;
+    }
+}

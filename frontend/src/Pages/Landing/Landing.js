@@ -1,6 +1,6 @@
 import React from 'react'
 import './Landing.scss'
-import Login from '../../Components/Login/Login';
+import Login from '../../Containers/Login/Login';
 
 const Landing = () => {
     return (
