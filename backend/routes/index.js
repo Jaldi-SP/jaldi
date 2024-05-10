@@ -1,6 +1,5 @@
 const express = require('express');
 var router = express.Router();
-var createError = require('http-errors');
 var authenticate = require('../lib/auth');
 var restrict = require('../lib/restrict');
 
