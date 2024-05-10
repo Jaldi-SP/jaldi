@@ -75,35 +75,7 @@ router.post("", async function (req, res, next) {
   }
 });
 
-router
-  .route("/:businessId/customer")
-  .post(async function (req, res, next) {
-    try {
-      const { first_name, last_name, phone_number, status } = req.body;
-      console.log(first_name, last_name, phone_number, status);
-      if (!Object.values(StatusEnum).includes(status)) {
-        return res.status(400).send("Invalid status provided.");
-      }
-      const sql =
-        "INSERT INTO users (id, first_name, last_name, phone_number, status, business_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-      const id = uuidv4();
-      const values = [
-        id,
-        first_name,
-        last_name,
-        phone_number,
-        status,
-        req.businessId,
-      ];
-      const newUser = await pool.query(sql, values);
-      res.status(201).send(newUser.rows[0]);
-      console.log(businesses);
-    } catch (err) {
-      console.log(err.message);
-      return res.status(500).send("Error making new customer");
-    }
-  })
-  .put() // edit customer
-  .delete(); // delete customer
+const customerRouter = require('../routes/customers');
+router.use("/:businessId/customer", customerRouter);
 
 module.exports = router;
