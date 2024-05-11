@@ -40,11 +40,11 @@ const Home = () => {
     }
 
     return <div className='home-page'>
-        <h2>{homeInfo.companyName}</h2>
+        <h2 id="company-name-title">{homeInfo.companyName}</h2>
         <div className='home-page-info'>
-            <StatusList listName={"Waitlist"} users={homeInfo.activeUsers.waitlist}/>
-            <StatusList listName={"Serving"} users={homeInfo.activeUsers.serving}/>
-            <StatusList listName={"Completed"} users={homeInfo.activeUsers.completed}/>
+            <StatusList listName={"Waitlist"} users={homeInfo.activeUsers.waitlist} changeStatus={()=>{console.log("Change Status")}}/>
+            <StatusList listName={"Serving"} users={homeInfo.activeUsers.serving} changeStatus={()=>{console.log("Change Status")}}/>
+            <StatusList listName={"Completed"} users={homeInfo.activeUsers.completed} changeStatus={()=>{console.log("Change Status")}}/>
         </div>
     </div>
     

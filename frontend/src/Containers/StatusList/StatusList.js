@@ -1,7 +1,7 @@
 import './StatusList.scss'
 
 const StatusList = (props) => {
-    let {listName, users} = props;
+    let {listName, users, changeStatus} = props;
 
     const Users = () => {
         return (
@@ -9,7 +9,8 @@ const StatusList = (props) => {
             {users.map((user, index) => (
               <div className="user" key={index}>
                 <p>{user.firstName} {user.lastName}</p>
-                <p>Phone Number: {user.phone_number}</p>
+                <button onClick={changeStatus}>{">"}</button>
+                {/* <p>Phone Number: {user.phone_number}</p> */}
               </div>
             ))}
           </div>
@@ -20,7 +21,7 @@ const StatusList = (props) => {
         <div className='status-list-container'>
             <div className='status-list-header'>
                 <h3>{listName}</h3>
-                <button>+</button>
+                <button className='add-to-list-button'><h3>+</h3></button>
             </div>
             
             {Users()}

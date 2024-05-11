@@ -1,14 +1,14 @@
 @import './../../variables.scss';
 
 .home-page {
-    background-color: $tiffany-blue;
+    background-color: $dark-purple;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    h2 {
-        background-color: $mint-cream;
+    #company-name-title {
+        background-color: $white;
         font-size: x-large;
         padding: 20px 50px;
         border-radius: 10px;

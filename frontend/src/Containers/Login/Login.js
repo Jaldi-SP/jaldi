@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './Login.scss';
 
-const Login = () => {
+const Login = (props) => {
+    const {setAuthenticated} = props;
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,6 +18,7 @@ const Login = () => {
         console.log("Logging in with:", username, password);
         setUsername('');
         setPassword('');
+        setAuthenticated(true);
     };
 
     return (

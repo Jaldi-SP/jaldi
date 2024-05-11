@@ -5,9 +5,8 @@
     justify-content: flex-end;
     height: 100vh;
     .landing-background {
-        background: url(./../../landing_page.webp) no-repeat center center;
         background-size: auto;
-        background-color: $tiffany-blue;
+        background-color: $dark-purple;
         width: calc(100% - $login-container-width); // Subtracting the width of the login-container
         height: 100vh;
     }
