@@ -1,0 +1,1 @@
+select * from businesses where username = $1;
