@@ -1,16 +1,26 @@
-// // // // CONSTANTS // // // //
-
-require('dotenv').config()
+require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const massive = require('massive');
+const fs = require('fs');
+const path = require('path');
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env
 
-const express = require('express')
-const session = require('express-session')
-const massive = require('massive')
+if (!CONNECTION_STRING) {
+    throw new Error(
+        'CONNECTION_STRING is not defined in the environment variables',
+    )
+}
+if (!SESSION_SECRET) {
+    throw new Error(
+        'SESSION_SECRET is not defined in the environment variables',
+    )
+}
 
 const app = express()
 
-// // // // CONTROLLERS // // // //
+// // // // ROUTERS // // // //
 
 const authRouter = require('./routers/authRouter.ts')
 const businessRouter = require('./routers/businessRouter.ts')
@@ -27,25 +37,83 @@ app.use(
     }),
 )
 
+const runSeedScript = async (db) => {
+    try {
+        const checkTablesPath = path.join(
+            __dirname,
+            'db',
+            'seed',
+            'checkTables.sql',
+        )
+        const checkTablesQuery = fs.readFileSync(checkTablesPath, 'utf-8')
+
+        const createBusinessesPath = path.join(
+            __dirname,
+            'db',
+            'seed',
+            'createBusinesses.sql',
+        )
+        const createCustomersPath = path.join(
+            __dirname,
+            'db',
+            'seed',
+            'createCustomers.sql',
+        )
+
+        const result = await db.query(checkTablesQuery)
+        const { businesses_exists, customers_exists } = result[0]
+
+        if (!businesses_exists) {
+            const createBusinessesQuery = fs.readFileSync(
+                createBusinessesPath,
+                'utf-8',
+            )
+            await db.query(createBusinessesQuery)
+            console.log('Businesses table created successfully.')
+        } else {
+            console.log('Businesses table already exists.')
+        }
+
+        if (!customers_exists) {
+            const createCustomersQuery = fs.readFileSync(
+                createCustomersPath,
+                'utf-8',
+            )
+            await db.query(createCustomersQuery)
+            console.log('Customers table created successfully.')
+        } else {
+            console.log('Customers table already exists.')
+        }
+    } catch (err) {
+        console.error('Error running seed script:', err)
+    }
+}
+
 // // // // DATABASE/SERVER SETUP // // // //
 
-massive(CONNECTION_STRING).then((db) => {
-    app.set('db', db)
-    console.log('Database Connected')
-    app.listen(SERVER_PORT, () => {
-        console.log(`Magic at ${SERVER_PORT}`);
+massive(CONNECTION_STRING)
+    .then(async (db) => {
+        app.set('db', db)
+        console.log('Database Connected')
+
+        await runSeedScript(db)
+
+        app.listen(SERVER_PORT, () => {
+            console.log(`Server running on port ${SERVER_PORT}`)
+        })
     })
-})
+    .catch((err) => {
+        console.error('Error connecting to the database:', err)
+    })
 
 // // // // ENDPOINTS // // // //
 
 // // // // AUTH CONTROLLER // // // //
-app.use(`/auth`, authRouter);
+app.use(`/auth`, authRouter)
 app.use(`/business`, businessRouter)
 // app.post(`/auth/register`, authController.register);
 // app.post(`/auth/login`, authController.login);
 // app.post(`/auth/logout`, authController.logout);
 // app.get(`/auth/user`, authController.getUser);
 
-// // // // BUSINESS INFO CONTROLLER // // // 
-
+// // // // BUSINESS INFO CONTROLLER // // //
