@@ -12,7 +12,8 @@ const app = express()
 
 // // // // CONTROLLERS // // // //
 
-const ac = require('./controllers/authcontroller')
+const authRouter = require('./routers/authRouter.ts')
+const businessRouter = require('./routers/businessRouter.ts')
 
 // // // // MIDDLEWARES // // // //
 
@@ -39,10 +40,12 @@ massive(CONNECTION_STRING).then((db) => {
 // // // // ENDPOINTS // // // //
 
 // // // // AUTH CONTROLLER // // // //
+app.use(`/auth`, authRouter);
+app.use(`/business`, businessRouter)
+// app.post(`/auth/register`, authController.register);
+// app.post(`/auth/login`, authController.login);
+// app.post(`/auth/logout`, authController.logout);
+// app.get(`/auth/user`, authController.getUser);
 
-app.post(`/auth/register`, ac.register);
-app.post(`/auth/login`, ac.login);
-app.post(`/auth/logout`, ac.logout);
-app.get(`/auth/user`, ac.getUser);
+// // // // BUSINESS INFO CONTROLLER // // // 
 
-// // // // INFO CONTROLLER // // // // 
