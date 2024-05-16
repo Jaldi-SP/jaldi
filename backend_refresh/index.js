@@ -1,9 +1,9 @@
-require('dotenv').config();
-const express = require('express');
-const session = require('express-session');
-const massive = require('massive');
-const fs = require('fs');
-const path = require('path');
+require('dotenv').config()
+const express = require('express')
+const session = require('express-session')
+const massive = require('massive')
+const fs = require('fs')
+const path = require('path')
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env
 
@@ -22,6 +22,9 @@ const app = express()
 
 // // // // ROUTERS // // // //
 
+app.get('/', (req, res) => {
+    res.sendStatus(200)
+}) // health check
 const authRouter = require('./routers/authRouter.ts')
 const businessRouter = require('./routers/businessRouter.ts')
 
