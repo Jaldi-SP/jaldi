@@ -1,0 +1,21 @@
+@import './../../variables.scss';
+
+.action-button {
+    padding: 10px;
+    border-radius: 5px;
+    width: 44%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &.add-button {
+        background-color: $dark-purple;
+        color: $white;
+        margin-left: 4%;
+    }
+
+    &.cancel-button {
+        background-color: #d4d4d4;
+    }
+}
