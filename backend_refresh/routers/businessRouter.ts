@@ -18,11 +18,18 @@ businessRouter
     .post(async (req, res) => {
         const { user } = req.session
         const { first_name, last_name, phone_number, status } = req.body
-        //TODO(1) ADD VALIDATION FOR FIELDS
-        //TODO(2) NO DUPLICATE USERS
-        const customer_id = uuidv4()
+        if (!Object.values(StatusEnum).includes(status)) {
+            return res.status(400).send('Invalid status provided.')
+        }
         const db = req.app.get('db')
         if (user) {
+            let phoneExists = await db.business.getPhone(phone_number)
+            if (phoneExists.length !== 0) {
+                return res
+                    .status(409)
+                    .send({ error: 'Phone number already exists' })
+            }
+            const customer_id = uuidv4()
             try {
                 let newUser = await db.business.newCustomer(
                     customer_id,
@@ -45,7 +52,9 @@ businessRouter
         const { user } = req.session
         const { customer_id, first_name, last_name, phone_number, status } =
             req.body
-        // TODO: ADD VALIDATION FOR FIELDS
+        if (!Object.values(StatusEnum).includes(status)) {
+            return res.status(400).send('Invalid status provided.')
+        }
         const db = req.app.get('db')
         if (user) {
             try {
@@ -92,5 +101,12 @@ businessRouter
             return res.status(401).send('Unauthorized')
         }
     })
+
+const StatusEnum = {
+    WAITLIST: 'Waitlist',
+    SERVING: 'Serving',
+    COMPLETED: 'Completed',
+    INACTIVE: 'Inactive',
+}
 
 module.exports = businessRouter
