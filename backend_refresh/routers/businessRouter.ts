@@ -102,11 +102,40 @@ businessRouter
         }
     })
 
+businessRouter.post('/notify', (req, res) => {
+    const accountSid = process.env.TWILIO_ACCOUNT_SID
+    const authToken = process.env.TWILIO_AUTH_TOKEN
+    const client = require('twilio')(accountSid, authToken)
+    const whatsappTo = addWhatsappPrefix(req.body.whatsappTo)
+    const whatsappFrom = addWhatsappPrefix(process.env.TWILIO_PHONE)
+    const { user } = req.session
+    if (user) {
+        try {
+            client.messages
+                .create({
+                    from: whatsappFrom,
+                    body: `${user.name} is ready for you. Please confirm, cancel, or call us. `,
+                    to: whatsappTo,
+                })
+                .then((message) => console.log(message))
+            res.sendStatus(200)
+        } catch (err) {
+            throw err
+        }
+    } else {
+        return res.status(401).send('Unauthorized')
+    }
+})
+
 const StatusEnum = {
     WAITLIST: 'Waitlist',
     SERVING: 'Serving',
     COMPLETED: 'Completed',
     INACTIVE: 'Inactive',
+}
+
+function addWhatsappPrefix(number) {
+    return 'whatsapp:' + number
 }
 
 module.exports = businessRouter
