@@ -107,14 +107,19 @@ businessRouter.post('/notify', (req, res) => {
     const authToken = process.env.TWILIO_AUTH_TOKEN
     const client = require('twilio')(accountSid, authToken)
     const whatsappTo = addWhatsappPrefix(req.body.whatsappTo)
-    const whatsappFrom = addWhatsappPrefix(process.env.TWILIO_PHONE)
+    const messageSid = process.env.TWILIO_MESSAGE_SID
+    const contentSid = process.env.TWILIO_CONTENT_SID
     const { user } = req.session
     if (user) {
         try {
             client.messages
                 .create({
-                    from: whatsappFrom,
-                    body: `${user.name} is ready for you. Please confirm, cancel, or call us. `,
+                    from: messageSid,
+                    contentSid: contentSid,
+                    contentVariables: JSON.stringify({
+                        1: user.name,
+                        2: 'tel:+919903099090', //Add business phone number here
+                    }),
                     to: whatsappTo,
                 })
                 .then((message) => console.log(message))
@@ -125,6 +130,11 @@ businessRouter.post('/notify', (req, res) => {
     } else {
         return res.status(401).send('Unauthorized')
     }
+})
+
+businessRouter.post('/whatsappResponse', (req, res) => {
+    console.log(req)
+    res.sendStatus(200)
 })
 
 const StatusEnum = {
