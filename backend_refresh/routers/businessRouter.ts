@@ -134,6 +134,8 @@ businessRouter.post('/notify', (req, res) => {
 
 businessRouter.post('/whatsappResponse', async (req, res) => {
     const body = req.body
+    console.log("Here is the request /whatsappResponse received: ")
+    console.log(body)
     const customer_phone_number = removeWhatsappPrefix(body.From)
     const db = req.app.get('db')
     let result = await db.business.getPhone(customer_phone_number)
