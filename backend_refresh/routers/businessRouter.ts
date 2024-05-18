@@ -132,11 +132,41 @@ businessRouter.post('/notify', (req, res) => {
     }
 })
 
-businessRouter.post('/whatsappResponse', (req, res) => {
-    console.log(req)
+businessRouter.post('/whatsappResponse', async (req, res) => {
+    const body  = req.body
+    console.log(body)
+    const customer_phone_number = removeWhatsappPrefix(body.From)
+    console.log(customer_phone_number);
+    const db = req.app.get('db')
+    let result = await db.business.getPhone(customer_phone_number)
+    if (result.length === 0) {
+        return res.status(409).send({ error: 'Phone number does not exist' })
+    }
+    const customer = result[0]
+    console.log(customer)
+    const messageContent = body.Body
+    if (messageContent === ResponseEnum.CANCEL) {
+        let updatedCustomer = await db.business.updateCustomer(
+            customer.id,
+            customer.first_name,
+            customer.last_name,
+            customer.phone_number,
+            StatusEnum.INACTIVE,
+            customer.business_id,
+        )
+        if (updatedCustomer.length === 0) {
+            return res.status(404).send('Customer not found')
+        }
+        updatedCustomer = updatedCustomer[0]
+        return res.status(200).send(updatedCustomer)
+    }
     res.sendStatus(200)
 })
 
+const ResponseEnum = {
+    CONFIRM: 'Confirm',
+    CANCEL: 'Cancel',
+}
 const StatusEnum = {
     WAITLIST: 'Waitlist',
     SERVING: 'Serving',
@@ -144,8 +174,8 @@ const StatusEnum = {
     INACTIVE: 'Inactive',
 }
 
-function addWhatsappPrefix(number) {
-    return 'whatsapp:' + number
-}
+
+const addWhatsappPrefix = (number) => `whatsapp:${number}`;
+const removeWhatsappPrefix = (number) => number.replace('whatsapp:', '');
 
 module.exports = businessRouter
