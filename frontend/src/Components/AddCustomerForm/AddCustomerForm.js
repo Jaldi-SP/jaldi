@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddCustomerForm.scss";
 import ActionButton from "./../ActionButton/ActionButton";
@@ -9,9 +9,20 @@ const AddCustomerForm = (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [animationClass, setAnimationClass] = useState("");
+    const [display, setDisplay] = useState("none");
 
     const { listName, showForm, setShowForm } = props;
-    const display = showForm ? "block" : "none";
+
+    useEffect(() => {
+        if (showForm) {
+            setDisplay("block");
+            setTimeout(() => setAnimationClass("slide-in"), 10); // Small delay to ensure the display change is registered
+        } else {
+            setAnimationClass("slide-out");
+            setTimeout(() => setDisplay("none"), 500); // Matches the duration of the transition
+        }
+    }, [showForm]);
 
     const handleAddCustomer = async () => {
         try {
@@ -32,7 +43,7 @@ const AddCustomerForm = (props) => {
     };
 
     return (
-        <div className="add-customer-form" style={{ display }}>
+        <div className={`add-customer-form ${animationClass}`} style={{ display }}>
             <div className="header">
                 <h1>{"Add to " + listName}</h1>
             </div>

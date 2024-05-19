@@ -3,12 +3,21 @@
 .add-customer-form {
     background-color: $white;
     height: 100%;
-    width: 450px;
+    width: 0;
     position: absolute;
     right: 0;
     top: 0;
     box-shadow: -1px 0px 5px #d4d4d4;
+    overflow: hidden; /* Ensure content doesn't overflow during animation */
+    transition: width 0.5s ease-in-out;
 
+    &.slide-in {
+        width: 450px;
+    }
+
+    &.slide-out {
+        width: 0;
+    }
 
     .header {
         border-bottom: solid #d4d4d4 1px;
@@ -33,6 +42,6 @@
         justify-content: center;
         align-items: center;
         height: 8%;
-        width: 450px;
+        width: 100%;
     }
 }
