@@ -10,8 +10,25 @@ businessRouter
         const db = req.app.get('db')
         if (user) {
             const users = await db.business.getCustomers(user.id)
-            console.log(users)
-            res.send(users).status(200)
+            
+            const statusLists = Object.values(StatusEnum).reduce((acc, key) => {
+                acc[key] = [];
+                return acc;
+            }, {});
+            for (const idx in users) {
+                const user = users[idx]
+                const {status, customers} = user
+                if (status === StatusEnum.WAITLIST) {
+                    statusLists[StatusEnum.WAITLIST] = customers
+                } else if (status === StatusEnum.SERVING) {
+                    statusLists[StatusEnum.SERVING] = customers
+                } else if (status === StatusEnum.COMPLETED) {
+                    statusLists[StatusEnum.COMPLETED] = customers
+                } else if (status === StatusEnum.INACTIVE) {
+                    statusLists[StatusEnum.INACTIVE] = customers
+                }
+            }
+            res.send(statusLists).status(200)
         } else {
             res.sendStatus(401)
         }
