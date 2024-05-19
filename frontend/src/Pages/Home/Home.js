@@ -17,7 +17,7 @@ const Home = (props) => {
         const getBusinessInfo = async () => {
             try {
                 const res = await axios.get("/business");
-                const {data} = res;
+                const { data } = res;
                 if (data) {
                     setWaitlist(data.Waitlist || []);
                     setServing(data.Serving || []);
@@ -28,7 +28,7 @@ const Home = (props) => {
                 console.log(err);
             }
         };
-        getBusinessInfo()
+        getBusinessInfo();
     }, []);
 
     const showFormForList = (listName) => {
@@ -45,7 +45,26 @@ const Home = (props) => {
         }
     };
 
-    
+    const changeStatus = async (
+        customer_id,
+        first_name,
+        last_name,
+        phone_number,
+        status
+    ) => {
+        try {
+            const res = axios.put(`/business`, {
+                customer_id,
+                first_name,
+                last_name,
+                phone_number,
+                status,
+            });
+            console.log(res.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <div className="home-page">
@@ -55,25 +74,44 @@ const Home = (props) => {
                 <StatusList
                     listName={"Waitlist"}
                     users={waitlist}
-                    changeStatus={() => {
-                        console.log("Change Status");
+                    changeStatus={(
+                        customer_id,
+                        first_name,
+                        last_name,
+                        phone_number
+                    ) => {
+                        changeStatus(
+                            customer_id,
+                            first_name,
+                            last_name,
+                            phone_number,
+                            "Serving"
+                        );
                     }}
                     showFormForList={showFormForList}
                 />
                 <StatusList
                     listName={"Serving"}
                     users={serving}
-                    changeStatus={() => {
-                        console.log("Change Status");
+                    changeStatus={(
+                        customer_id,
+                        first_name,
+                        last_name,
+                        phone_number
+                    ) => {
+                        changeStatus(
+                            customer_id,
+                            first_name,
+                            last_name,
+                            phone_number,
+                            "Completed"
+                        );
                     }}
                     showFormForList={showFormForList}
                 />
                 <StatusList
                     listName={"Completed"}
                     users={completed}
-                    changeStatus={() => {
-                        console.log("Change Status");
-                    }}
                     showFormForList={showFormForList}
                 />
             </div>

@@ -11,7 +11,20 @@ const StatusList = (props) => {
                         <p>
                             {user.first_name} {user.last_name}
                         </p>
-                        <button onClick={changeStatus}>{">"}</button>
+                        {changeStatus && (
+                            <button
+                                onClick={() =>
+                                    changeStatus(
+                                        user.id,
+                                        user.first_name,
+                                        user.last_name,
+                                        user.phone_number
+                                    )
+                                }
+                            >
+                                {">"}
+                            </button>
+                        )}
                         {/* <p>Phone Number: {user.phone_number}</p> */}
                     </div>
                 ))}
