@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './Login.scss';
+import axios from 'axios';
+import Input from '../../Components/Input/Input';
+import Label from '../../Components/Label/Label';
+import ActionButton from '../../Components/ActionButton/ActionButton';
 
 const Login = (props) => {
     const {setAuthenticated} = props;
@@ -14,29 +18,35 @@ const Login = (props) => {
         setPassword(event.target.value);
     };
 
-    const handleSubmit = () => {
-        console.log("Logging in with:", username, password);
+    const handleSubmit = async () => {
+        try {
+            const res = await axios.post("/auth/login", {username, password})
+            console.log(res)
+            setAuthenticated(true);
+        } catch (err) {
+            console.log(err)
+        }
         setUsername('');
         setPassword('');
-        setAuthenticated(true);
     };
 
     return (
         <div className='login-container'>
             <div className="login-form">
-                <input
-                    type="text"
-                    placeholder="Username"
+                <Label text="Username"/>
+                <Input
                     value={username}
                     onChange={handleUsernameChange}
+                    placeholder={"Username"}
                 />
-                <input
+                <Label text="Password"/>
+                <Input
                     type="password"
-                    placeholder="Access code"
                     value={password}
                     onChange={handleAccessCodeChange}
+                    placeholder={"Access code"}
                 />
-                <button type="submit" onClick={handleSubmit}>Sign in</button>
+                <ActionButton label="Sign in" id="sign-in-button" onClick={handleSubmit}/>
             </div>
         </div>
     );

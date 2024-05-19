@@ -5,20 +5,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    // padding-left: calc(0.05*$login-container-width);
     background-color: $white;
     width: $login-container-width;
     height: 100vh;
     .login-form {
-        // background-color: $dark-purple;
-        height: 40%;
         width: 90%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        input, button{
-            width: 50%;
-            margin-bottom: 20px;
-        }
+        justify-content: flex-start;
+        // align-items: center;
     }
 }

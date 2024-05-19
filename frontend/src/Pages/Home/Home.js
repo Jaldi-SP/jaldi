@@ -1,53 +1,89 @@
-import StatusList from '../../Containers/StatusList/StatusList';
-import './Home.scss';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import StatusList from "../../Containers/StatusList/StatusList";
+import "./Home.scss";
+import AddCustomerForm from "../../Components/AddCustomerForm/AddCustomerForm";
 
-const Home = () => {
-    let homeInfo = {
-        companyName: "Geetanjali",
-        activeUsers: {
-            "waitlist": [
-                {
-                  firstName: "Sreyas",
-                  lastName: "Agarwal",
-                  phone_number: "+919876543210"
-                },
-                {
-                  firstName: "Jane",
-                  lastName: "Doe",
-                  phone_number: "+1234567890"
-                },
-                {
-                  firstName: "John",
-                  lastName: "Smith",
-                  phone_number: "+0987654321"
+const Home = (props) => {
+    const { companyName, setAuthenticated } = props;
+    const [showForm, setShowForm] = useState(false);
+    const [showingFormFor, setShowingFormFor] = useState("");
+    const [waitlist, setWaitlist] = useState([]);
+    const [serving, setServing] = useState([]);
+    const [completed, setCompleted] = useState([]);
+    const [inactive, setInactive] = useState([]);
+
+    useEffect(() => {
+        const getBusinessInfo = async () => {
+            try {
+                const res = await axios.get("/business");
+                const {data} = res;
+                if (data) {
+                    setWaitlist(data.Waitlist || []);
+                    setServing(data.Serving || []);
+                    setCompleted(data.Completed || []);
+                    setInactive(data.Inactive || []);
                 }
-            ],
-            "serving": [
-                {
-                    firstName: "Prakarsh",
-                    lastName: "Gupta",
-                    phone_number: "+919876543210"
-                }
-            ],
-            "completed": [
-                {
-                    firstName: "Jack",
-                    lastName: "Sparrow",
-                    phone_number: "+919876543210"
-                }
-            ]
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        getBusinessInfo()
+    }, []);
+
+    const showFormForList = (listName) => {
+        setShowingFormFor(listName);
+        setShowForm(true);
+    };
+
+    const logout = async () => {
+        try {
+            const res = axios.post(`/auth/logout`);
+            setAuthenticated(false);
+        } catch (err) {
+            console.log(err);
         }
-    }
+    };
 
-    return <div className='home-page'>
-        <h2 id="company-name-title">{homeInfo.companyName}</h2>
-        <div className='home-page-info'>
-            <StatusList listName={"Waitlist"} users={homeInfo.activeUsers.waitlist} changeStatus={()=>{console.log("Change Status")}}/>
-            <StatusList listName={"Serving"} users={homeInfo.activeUsers.serving} changeStatus={()=>{console.log("Change Status")}}/>
-            <StatusList listName={"Completed"} users={homeInfo.activeUsers.completed} changeStatus={()=>{console.log("Change Status")}}/>
-        </div>
-    </div>
     
-}
+
+    return (
+        <div className="home-page">
+            <button onClick={logout}> Logout </button>
+            <h2 id="company-name-title">{companyName}</h2>
+            <div className="home-page-info">
+                <StatusList
+                    listName={"Waitlist"}
+                    users={waitlist}
+                    changeStatus={() => {
+                        console.log("Change Status");
+                    }}
+                    showFormForList={showFormForList}
+                />
+                <StatusList
+                    listName={"Serving"}
+                    users={serving}
+                    changeStatus={() => {
+                        console.log("Change Status");
+                    }}
+                    showFormForList={showFormForList}
+                />
+                <StatusList
+                    listName={"Completed"}
+                    users={completed}
+                    changeStatus={() => {
+                        console.log("Change Status");
+                    }}
+                    showFormForList={showFormForList}
+                />
+            </div>
+            <AddCustomerForm
+                showForm={showForm}
+                setShowForm={setShowForm}
+                listName={showingFormFor}
+            />
+        </div>
+    );
+};
 
 export default Home;

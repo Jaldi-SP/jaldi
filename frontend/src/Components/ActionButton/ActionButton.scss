@@ -15,6 +15,12 @@
         margin-left: 4%;
     }
 
+    &.sign-in-button {
+        background-color: $dark-purple;
+        color: $white;
+        width: auto;
+    }
+
     &.cancel-button {
         background-color: #d4d4d4;
     }
