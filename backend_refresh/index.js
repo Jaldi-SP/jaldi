@@ -22,13 +22,12 @@ const app = express()
 
 // // // // ROUTERS // // // //
 
-app.get('/', (req, res) => {
-    res.sendStatus(200)
-}) // health check
+
 const authRouter = require('./routers/authRouter.ts')
 const businessRouter = require('./routers/businessRouter.ts')
 
 // // // // MIDDLEWARES // // // //
+app.use(express.static(`${__dirname}/../frontend/build`));
 
 app.use(express.json())
 
@@ -39,6 +38,10 @@ app.use(
         saveUninitialized: true,
     }),
 )
+
+app.get('/', (req, res) => {
+    res.sendStatus(200)
+}) // health check
 
 const runSeedScript = async (db) => {
     try {
