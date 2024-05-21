@@ -1,4 +1,5 @@
 import "./StatusList.scss";
+import addButton from "../../assets/user-add.svg";
 
 const StatusList = (props) => {
     let { listName, users, changeStatus, showFormForList } = props;
@@ -7,7 +8,7 @@ const StatusList = (props) => {
         return (
             <div>
                 {users.map((user, index) => (
-                    <div className="user" key={index}>
+                    <div className="user" key={user.id}>
                         <p>
                             {user.first_name} {user.last_name}
                         </p>
@@ -40,7 +41,7 @@ const StatusList = (props) => {
                     className="add-to-list-button"
                     onClick={() => showFormForList(listName)}
                 >
-                    <h3>+</h3>
+                    <img src={addButton} alt={"+"}/>
                 </button>
             </div>
 
