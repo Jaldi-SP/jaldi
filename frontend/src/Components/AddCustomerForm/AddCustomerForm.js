@@ -12,7 +12,7 @@ const AddCustomerForm = (props) => {
     const [animationClass, setAnimationClass] = useState("");
     const [display, setDisplay] = useState("none");
 
-    const { listName, showForm, setShowForm } = props;
+    const { listName, showForm, setShowForm, refreshBusinessInfo } = props;
 
     useEffect(() => {
         if (showForm) {
@@ -32,11 +32,12 @@ const AddCustomerForm = (props) => {
                 phone_number: phoneNumber,
                 status: listName,
             });
-            console.log(res.data);
             setFirstName("");
             setLastName("");
             setPhoneNumber("");
             setShowForm(false);
+            refreshBusinessInfo();
+
         } catch (err) {
             console.log(err);
         }
