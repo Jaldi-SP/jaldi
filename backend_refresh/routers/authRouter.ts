@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const authRouter = express.Router()
 
 authRouter.post('/register', async (req, res) => {
-    const { name, username, password } = req.body
+    const { name, username, password, phone_number } = req.body
     const { session } = req
     const db = req.app.get('db')
 
@@ -23,7 +23,8 @@ authRouter.post('/register', async (req, res) => {
         id,
         name, 
         username, 
-        hash 
+        hash,
+        phone_number || null
     ])
     newBusiness = newBusiness[0]
 

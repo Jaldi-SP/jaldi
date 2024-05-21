@@ -41,7 +41,7 @@ businessRouter
         }
         const db = req.app.get('db')
         if (user) {
-            let phoneExists = await db.business.getPhone(phone_number)
+            let phoneExists = await db.business.getCustomerFromPhone(phone_number, user.id)
             if (phoneExists.length !== 0) {
                 return res
                     .status(409)
