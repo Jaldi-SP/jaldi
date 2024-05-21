@@ -5,7 +5,7 @@
     width: 400px;
     padding: 30px 24px 30px 24px;
     margin-right: 40px;
-    background-color: $white;
+    background-color: $status-list-background;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -33,9 +33,23 @@
         }
     }
     .user {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: flex;
-        justify-content: space-around;
-        width: 400px;
+        justify-content: space-between;
+        align-items: center;
+        width: 312px;
+        background-color: $white;
+        border-radius: 5px;
+        height: 60px;
+        padding: 0px 40px;
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                width: 25px;
+            }
+        }
+        
     }
 }
