@@ -21,7 +21,6 @@ const Login = (props) => {
     const handleSubmit = async () => {
         try {
             const res = await axios.post("/auth/login", {username, password})
-            console.log(res)
             setAuthenticated(true);
         } catch (err) {
             console.log(err)

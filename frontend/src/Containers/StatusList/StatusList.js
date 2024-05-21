@@ -1,15 +1,21 @@
+import { useEffect, useState } from 'react';
 import "./StatusList.scss";
 import addButton from "../../assets/user-add.svg";
 import nextButton from "../../assets/green-right.svg";
 
 const StatusList = (props) => {
     let { listName, users, changeStatus, showFormForList } = props;
+    const [userList, setUserList] = useState(users);
+
+    useEffect(() => {
+        setUserList(users);
+    }, [users]);
 
     const Users = () => {
         return (
             <div>
-                {users.map((user, index) => (
-                    <div className="user" key={user.id}>
+                {userList.map((user, index) => (
+                    <div className="user" key={index}>
                         <p>
                             {user.first_name} {user.last_name}
                         </p>
@@ -17,6 +23,7 @@ const StatusList = (props) => {
                             <button
                                 onClick={() =>
                                     changeStatus(
+                                        index,
                                         user.id,
                                         user.first_name,
                                         user.last_name,
@@ -45,7 +52,7 @@ const StatusList = (props) => {
                 </button>
             </div>
 
-            {Users()}
+            <Users />
         </div>
     );
 };
