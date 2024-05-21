@@ -136,7 +136,7 @@ businessRouter.post('/notify', (req, res) => {
                     contentSid: contentSid,
                     contentVariables: JSON.stringify({
                         1: user.name,
-                        2: 'tel:+919903099090', //Add business phone number here
+                        2: addTelPrefix(user.phone_number) || 'tel:+919903099090',
                     }),
                     to: whatsappTo,
                 })
@@ -194,6 +194,7 @@ const StatusEnum = {
 
 
 const addWhatsappPrefix = (number) => `whatsapp:${number}`;
+const addTelPrefix = (number) => `tel:${number}`;
 const removeWhatsappPrefix = (number) => number.replace('whatsapp:', '');
 
 module.exports = businessRouter
