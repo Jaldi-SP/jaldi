@@ -1,0 +1,1 @@
+SELECT * FROM customers WHERE phone_number = $1 AND business_id = $2

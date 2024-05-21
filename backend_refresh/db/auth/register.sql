@@ -2,11 +2,13 @@ insert into businesses(
     id,
     name,
     username,
-    password
+    password,
+    phone_number
 ) values (
     $1,
     $2,
     $3,
-    $4
+    $4,
+    $5
 )
 returning *;
