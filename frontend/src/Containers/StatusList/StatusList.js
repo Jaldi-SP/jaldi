@@ -1,5 +1,6 @@
 import "./StatusList.scss";
 import addButton from "../../assets/user-add.svg";
+import nextButton from "../../assets/green-right.svg";
 
 const StatusList = (props) => {
     let { listName, users, changeStatus, showFormForList } = props;
@@ -23,10 +24,9 @@ const StatusList = (props) => {
                                     )
                                 }
                             >
-                                {">"}
+                                <img src={nextButton} alt={">"} />
                             </button>
                         )}
-                        {/* <p>Phone Number: {user.phone_number}</p> */}
                     </div>
                 ))}
             </div>
@@ -41,7 +41,7 @@ const StatusList = (props) => {
                     className="add-to-list-button"
                     onClick={() => showFormForList(listName)}
                 >
-                    <img src={addButton} alt={"+"}/>
+                    <img src={addButton} alt={"+"} />
                 </button>
             </div>
 

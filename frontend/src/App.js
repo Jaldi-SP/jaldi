@@ -19,7 +19,7 @@ function App() {
             }
         };
         checkUserAuthentication();
-    }, []);
+    }, [authenticated]);
 
     if (authenticated) {
         return (
