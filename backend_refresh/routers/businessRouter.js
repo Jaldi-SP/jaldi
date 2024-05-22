@@ -2,6 +2,10 @@ const express = require('express')
 const businessRouter = express.Router()
 const { v4: uuidv4 } = require('uuid')
 businessRouter.use(express.urlencoded({ extended: true }));
+const { TypedJSON } = require('typedjson')
+const { Business } = require('../dist/models/business')
+const { Customer} = require('../dist/models/customer')
+const customerSerializer = new TypedJSON(Customer)
 
 businessRouter
     .route('/')
@@ -10,22 +14,15 @@ businessRouter
         const db = req.app.get('db')
         if (user) {
             const users = await db.business.getCustomers(user.id)
-            
-            const statusLists = Object.values(StatusEnum).reduce((acc, key) => {
-                acc[key] = [];
-                return acc;
-            }, {});
-            for (const idx in users) {
-                const user = users[idx]
-                const {status, customers} = user
-                if (status === StatusEnum.WAITLIST) {
-                    statusLists[StatusEnum.WAITLIST] = customers
-                } else if (status === StatusEnum.SERVING) {
-                    statusLists[StatusEnum.SERVING] = customers
-                } else if (status === StatusEnum.COMPLETED) {
-                    statusLists[StatusEnum.COMPLETED] = customers
-                } else if (status === StatusEnum.INACTIVE) {
-                    statusLists[StatusEnum.INACTIVE] = customers
+            console.log(users)
+            const statusLists = {};
+            Object.values(StatusEnum).forEach(status => {
+                statusLists[status] = [];
+            });
+            for (const user of users) {
+                const { status, customers } = user;
+                if (statusLists[status]) {
+                    statusLists[status] = customers;
                 }
             }
             res.send(statusLists).status(200)
@@ -35,26 +32,26 @@ businessRouter
     })
     .post(async (req, res) => {
         const { user } = req.session
-        const { first_name, last_name, phone_number, status } = req.body
-        if (!Object.values(StatusEnum).includes(status)) {
+        const customer = customerSerializer.parse(req.body)
+        if (!Object.values(StatusEnum).includes(customer.status)) {
             return res.status(400).send('Invalid status provided.')
         }
         const db = req.app.get('db')
         if (user) {
-            let phoneExists = await db.business.getCustomerFromPhone(phone_number, user.id)
+            let phoneExists = await db.business.getCustomerFromPhone(customer.phone_number, user.id)
             if (phoneExists.length !== 0) {
                 return res
                     .status(409)
                     .send({ error: 'Phone number already exists' })
             }
-            const customer_id = uuidv4()
+            customer.id = uuidv4()
             try {
                 let newUser = await db.business.newCustomer(
-                    customer_id,
-                    first_name,
-                    last_name,
-                    phone_number,
-                    status,
+                    customer.id,
+                    customer.first_name,
+                    customer.last_name,
+                    customer.phone_number,
+                    customer.status,
                     user.id,
                 )
                 newUser = newUser[0]
@@ -68,20 +65,19 @@ businessRouter
     })
     .put(async (req, res) => {
         const { user } = req.session
-        const { customer_id, first_name, last_name, phone_number, status } =
-            req.body
-        if (!Object.values(StatusEnum).includes(status)) {
+        const customer = customerSerializer.parse(req.body)
+        if (!Object.values(StatusEnum).includes(customer.status)) {
             return res.status(400).send('Invalid status provided.')
         }
         const db = req.app.get('db')
         if (user) {
             try {
                 let updatedCustomer = await db.business.updateCustomer(
-                    customer_id,
-                    first_name,
-                    last_name,
-                    phone_number,
-                    status,
+                    customer.id,
+                    customer.first_name,
+                    customer.last_name,
+                    customer.phone_number,
+                    customer.status,
                     user.id,
                 )
                 if (updatedCustomer.length === 0) {

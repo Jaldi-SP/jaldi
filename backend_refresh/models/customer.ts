@@ -1,23 +1,23 @@
-const { jsonObject, jsonMember } = require('typedjson');
+import { jsonObject, jsonMember } from 'typedjson';
 
 @jsonObject
 export class Customer {
-    @jsonMember
+    @jsonMember(String)
     id: string;
 
-    @jsonMember
+    @jsonMember(String)
     first_name: string;
 
-    @jsonMember
+    @jsonMember(String)
     last_name: string;
 
-    @jsonMember
+    @jsonMember(String)
     phone_number: string;
 
-    @jsonMember
+    @jsonMember(String)
     status: string;
 
-    @jsonMember
+    @jsonMember(String)
     business_id: string;
 
     constructor(

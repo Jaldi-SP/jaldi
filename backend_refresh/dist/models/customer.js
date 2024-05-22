@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customer = void 0;
-const { jsonObject, jsonMember } = require('typedjson');
+const typedjson_1 = require("typedjson");
 let Customer = class Customer {
     constructor(id, first_name, last_name, phone_number, status, business_id) {
         this.id = id;
@@ -23,30 +23,30 @@ let Customer = class Customer {
 };
 exports.Customer = Customer;
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "id", void 0);
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "first_name", void 0);
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "last_name", void 0);
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "phone_number", void 0);
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "status", void 0);
 __decorate([
-    jsonMember,
+    (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Customer.prototype, "business_id", void 0);
 exports.Customer = Customer = __decorate([
-    jsonObject,
+    typedjson_1.jsonObject,
     __metadata("design:paramtypes", [String, String, String, String, String, String])
 ], Customer);
