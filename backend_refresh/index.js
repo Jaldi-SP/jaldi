@@ -23,8 +23,8 @@ const app = express()
 // // // // ROUTERS // // // //
 
 
-const authRouter = require('./routers/authRouter.ts')
-const businessRouter = require('./routers/businessRouter.ts')
+const authRouter = require('./routers/authRouter.js')
+const businessRouter = require('./routers/businessRouter.js')
 
 // // // // MIDDLEWARES // // // //
 app.use(express.static(`${__dirname}/../frontend/build`));
