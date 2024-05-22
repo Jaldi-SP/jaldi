@@ -1,15 +1,19 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
+const { TypedJSON } = require('typedjson')
+const { Business } = require('../dist/models/business')
 
 const authRouter = express.Router()
 
 authRouter.post('/register', async (req, res) => {
-    const { name, username, password, phone_number } = req.body
+    console.log(req)
+    const serializer = new TypedJSON(Business)
+    const business = serializer.parse(req.body)
     const { session } = req
     const db = req.app.get('db')
 
-    const usernameCheck = await db.auth.getUsernames(username)
+    const usernameCheck = await db.auth.getUsernames(business.username)
 
     if (usernameCheck.length !== 0) {
         return res.status(409).send('*Username Already Taken')

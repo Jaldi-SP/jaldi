@@ -2,28 +2,22 @@ import { jsonObject, jsonMember } from 'typedjson';
 
 @jsonObject
 export class Business {
-    @jsonMember
+    @jsonMember(String)
     id: string;
 
-    @jsonMember
+    @jsonMember(String)
     name: string;
 
-    @jsonMember
+    @jsonMember(String)
     username: string;
 
-    @jsonMember
+    @jsonMember(String)
     password: string;
 
-    @jsonMember
+    @jsonMember(String)
     phone_number?: string;
 
-    constructor(
-        id: string,
-        name: string,
-        username: string,
-        password: string,
-        phone_number?: string
-    ) {
+    constructor(id: string, name: string, username: string, password: string, phone_number?: string) {
         this.id = id;
         this.name = name;
         this.username = username;

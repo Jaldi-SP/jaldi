@@ -1,4 +1,4 @@
-import { jsonObject, jsonMember } from 'typedjson';
+const { jsonObject, jsonMember } = require('typedjson');
 
 @jsonObject
 export class Customer {
