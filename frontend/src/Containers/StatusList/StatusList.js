@@ -16,7 +16,7 @@ const StatusList = (props) => {
 
     const whatsappNotify = async () => {
         try {
-            const res = await axios.post("/notify");
+            const res = await axios.post("/business/notify");
         } catch (err) {
             console.log(err);
         }

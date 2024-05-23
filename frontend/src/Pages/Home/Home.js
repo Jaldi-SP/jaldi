@@ -48,7 +48,7 @@ const Home = (props) => {
 
     const changeStatus = async (
         indexToRemove,
-        customer_id,
+        id,
         first_name,
         last_name,
         phone_number,
@@ -57,7 +57,7 @@ const Home = (props) => {
     ) => {
         try {
             const res = await axios.put(`/business`, {
-                customer_id,
+                id,
                 first_name,
                 last_name,
                 phone_number,

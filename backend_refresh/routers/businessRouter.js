@@ -167,7 +167,7 @@ businessRouter.post('/whatsappResponse', async (req, res) => {
             customer.phone_number,
             StatusEnum.INACTIVE,
             customer.business_id,
-        )
+        ) //TODO(1) Check update
         if (updatedCustomer.length === 0) {
             return res.status(404).send('Customer not found')
         }
