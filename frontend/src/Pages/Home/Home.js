@@ -134,6 +134,7 @@ const Home = (props) => {
                         );
                     }}
                     showFormForList={showFormForList}
+                    showWhatsapp={true}
                 />
                 <StatusList
                     listName={"Serving"}
@@ -156,6 +157,7 @@ const Home = (props) => {
                         );
                     }}
                     showFormForList={showFormForList}
+                    showWhatsapp={true}
                 />
                 <StatusList
                     listName={"Completed"}

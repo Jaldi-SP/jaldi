@@ -1,15 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./StatusList.scss";
 import addButton from "../../assets/user-add.svg";
-import nextButton from "../../assets/green-right.svg";
+import nextButton from "../../assets/next.png";
+import whatsappButton from "../../assets/whatsapp-icon.svg";
 
 const StatusList = (props) => {
-    let { listName, users, changeStatus, showFormForList } = props;
+    let { listName, users, changeStatus, showFormForList, showWhatsapp } =
+        props;
     const [userList, setUserList] = useState(users);
 
     useEffect(() => {
         setUserList(users);
     }, [users]);
+
+    const whatsappNotify = async () => {
+        try {
+            const res = await axios.post("/notify");
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const Users = () => {
         return (
@@ -19,21 +30,36 @@ const StatusList = (props) => {
                         <p>
                             {user.first_name} {user.last_name}
                         </p>
-                        {changeStatus && (
-                            <button
-                                onClick={() =>
-                                    changeStatus(
-                                        index,
-                                        user.id,
-                                        user.first_name,
-                                        user.last_name,
-                                        user.phone_number
-                                    )
-                                }
-                            >
-                                <img src={nextButton} alt={">"} />
-                            </button>
-                        )}
+                        <div className="button-tray">
+                            {showWhatsapp && (
+                                <button onClick={whatsappNotify}>
+                                    <img
+                                        id="whatsapp-button"
+                                        src={whatsappButton}
+                                        alt={">"}
+                                    />
+                                </button>
+                            )}
+                            {changeStatus && (
+                                <button
+                                    onClick={() =>
+                                        changeStatus(
+                                            index,
+                                            user.id,
+                                            user.first_name,
+                                            user.last_name,
+                                            user.phone_number
+                                        )
+                                    }
+                                >
+                                    <img
+                                        id="next-button"
+                                        src={nextButton}
+                                        alt={">"}
+                                    />
+                                </button>
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
