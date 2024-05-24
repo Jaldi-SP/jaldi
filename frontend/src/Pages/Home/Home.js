@@ -61,7 +61,7 @@ const Home = (props) => {
                 first_name,
                 last_name,
                 phone_number,
-                status: newStatus,
+                status: newStatus
             });
             var toMove = {};
             switch (currentStatus) {
