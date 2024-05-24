@@ -14,9 +14,12 @@ const StatusList = (props) => {
         setUserList(users);
     }, [users]);
 
-    const whatsappNotify = async () => {
+    const whatsappNotify = async (phone_number) => {
         try {
-            const res = await axios.post("/notify");
+            const res = await axios.post("/business/notify", {
+                whatsappTo: phone_number
+            });
+            console.log(res);
         } catch (err) {
             console.log(err);
         }
@@ -32,7 +35,11 @@ const StatusList = (props) => {
                         </p>
                         <div className="button-tray">
                             {showWhatsapp && (
-                                <button onClick={whatsappNotify}>
+                                <button
+                                    onClick={() => {
+                                        whatsappNotify(user.phone_number);
+                                    }}
+                                >
                                     <img
                                         id="whatsapp-button"
                                         src={whatsappButton}
@@ -77,8 +84,9 @@ const StatusList = (props) => {
                     <img src={addButton} alt={"+"} />
                 </button>
             </div>
-
-            <Users />
+            <div className="user-list">
+                <Users />
+            </div>
         </div>
     );
 };

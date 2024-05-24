@@ -11,6 +11,7 @@
     justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
+
     .status-list-header {
         padding-left: 10px;
         padding-right: 10px;
@@ -21,7 +22,7 @@
         border-bottom: 1px black solid;
         h3 {
             font-size: large;
-            width:100%;
+            width: 100%;
             display: flex;
             justify-content: center;
         }
@@ -32,33 +33,40 @@
             right: 0;
         }
     }
-    .user {
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 360px;
-        background-color: $white;
-        border-radius: 5px;
-        height: 60px;
-        padding: 0px 20px;
-        .button-tray {
+
+    .user-list {
+        height: calc(100% - 70px); // Adjust to fill remaining height
+        width: 100%;
+        overflow-y: auto; // Enable vertical scrolling
+        overflow-x: hidden; // Hide horizontal scrolling
+        padding-right: 10px; // Add some padding for better UI
+        .user {
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
-            width: 65px;
-            button {
+            align-items: center;
+            width: 360px;
+            background-color: $white;
+            border-radius: 5px;
+            height: 60px;
+            padding: 0px 20px;
+
+            .button-tray {
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                #whatsapp-button {
-                    width: 23px;
-                }
-                #next-button {
-                    width: 30px;
+                justify-content: space-between;
+                width: 65px;
+                button {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    #whatsapp-button {
+                        width: 23px;
+                    }
+                    #next-button {
+                        width: 30px;
+                    }
                 }
             }
         }
-        
-        
     }
 }
