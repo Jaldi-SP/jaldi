@@ -27,7 +27,7 @@ businessRouter
             }
             res.send(statusLists).status(200)
         } else {
-            res.sendStatus(401)
+            res.sendStatus(401) // TODO(2) redirect to logout
         }
     })
     .post(async (req, res) => {
@@ -43,7 +43,7 @@ businessRouter
                 return res
                     .status(409)
                     .send({ error: 'Phone number already exists' })
-            }
+            } // TODO(3) : make sure numbers have +91 prefixed, 10 digits
             customer.id = uuidv4()
             try {
                 let newUser = await db.business.newCustomer(
@@ -79,7 +79,7 @@ businessRouter
                     customer.phone_number,
                     customer.status,
                     user.id,
-                )
+                ) // TODO(3) : make sure numbers have +91 prefixed, 10 digits, 
                 if (updatedCustomer.length === 0) {
                     return res.status(404).send('Customer not found')
                 }
@@ -134,7 +134,7 @@ businessRouter.post('/notify', (req, res) => {
                         1: user.name,
                         2: addTelPrefix(user.phone_number) || 'tel:+919903099090',
                     }),
-                    to: whatsappTo,
+                    to: whatsappTo, //TODO(4): Catch error when number invalid, phone check, 
                 })
                 .then((message) => console.log(message))
             res.sendStatus(200)
