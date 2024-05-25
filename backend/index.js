@@ -4,6 +4,7 @@ const session = require('express-session')
 const massive = require('massive')
 const fs = require('fs')
 const path = require('path')
+const morgan = require('morgan');
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env
 
@@ -30,6 +31,8 @@ const businessRouter = require('./routers/businessRouter.js')
 app.use(express.static(`${__dirname}/../frontend/build`));
 
 app.use(express.json())
+
+app.use(morgan('dev'));
 
 app.use(
     session({
