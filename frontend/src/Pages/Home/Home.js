@@ -158,11 +158,29 @@ const Home = (props) => {
                     }}
                     showFormForList={showFormForList}
                     showWhatsapp={true}
-                />
+                /> 
                 <StatusList
                     listName={"Completed"}
                     users={completed}
                     showFormForList={showFormForList}
+                    showWhatsapp={true}
+                    changeStatus={(
+                        index,
+                        customer_id,
+                        first_name,
+                        last_name,
+                        phone_number
+                    ) => {
+                        changeStatus( // adding function to change back to serving for testing
+                            index,
+                            customer_id,
+                            first_name,
+                            last_name,
+                            phone_number,
+                            "Completed",
+                            "Waitlist"
+                        );
+                    }}
                 />
             </div>
             <AddCustomerForm
