@@ -26,10 +26,16 @@ const AddCustomerForm = (props) => {
 
     const handleAddCustomer = async () => {
         try {
+            let formattedPhoneNumber = phoneNumber;
+
+            if (formattedPhoneNumber.startsWith("+91")) {
+                formattedPhoneNumber = formattedPhoneNumber.slice(3);
+            }
+
             const res = await axios.post("/business", {
                 first_name: firstName,
                 last_name: lastName,
-                phone_number: phoneNumber,
+                phone_number: `+91${formattedPhoneNumber}`,
                 status: listName,
             });
             setFirstName("");
@@ -65,9 +71,11 @@ const AddCustomerForm = (props) => {
 
                 <Label text={"Phone Number"} required={true} />
                 <Input
+                    type="tel"
                     value={phoneNumber}
                     onChange={(event) => setPhoneNumber(event.target.value)}
                     placeholder={"Enter Phone Number"}
+                    prefix="+91"
                 />
             </div>
             <div className="button-tray">

@@ -123,6 +123,7 @@ businessRouter
     })
     .delete(async (req, res) => {
         try {
+            console.log(req.body)
             const { user } = req.session;
             const { customer_id } = req.body;
     

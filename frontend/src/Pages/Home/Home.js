@@ -129,6 +129,7 @@ const Home = (props) => {
                             "Serving"
                         );
                     }}
+                    showDelete={true}
                     showFormForList={showFormForList}
                     showWhatsapp={true}
                 />
@@ -152,6 +153,7 @@ const Home = (props) => {
                             "Completed"
                         );
                     }}
+                    showDelete={true}
                     showFormForList={showFormForList}
                     showWhatsapp={true}
                 /> 
@@ -160,6 +162,7 @@ const Home = (props) => {
                     users={completed}
                     showFormForList={showFormForList}
                     showWhatsapp={true}
+                    showDelete={true}
                     changeStatus={(
                         index,
                         customer_id,
