@@ -46,15 +46,7 @@ const Home = (props) => {
         }
     };
 
-    const changeStatus = async (
-        indexToRemove,
-        id,
-        first_name,
-        last_name,
-        phone_number,
-        currentStatus,
-        newStatus
-    ) => {
+    const changeStatus = async (indexToRemove, id, first_name, last_name, phone_number, currentStatus, newStatus) => {
         try {
             const res = await axios.put(`/business`, {
                 id,
@@ -63,42 +55,45 @@ const Home = (props) => {
                 phone_number,
                 status: newStatus
             });
-            var toMove = {};
+    
+            let toMove;
+            const updateList = (list, setList) => {
+                toMove = list[indexToRemove]
+                setList(list.filter((_, index) => index !== indexToRemove));
+            };
+    
             switch (currentStatus) {
                 case "Waitlist":
-                    toMove = waitlist[indexToRemove];
-                    const newWaitlist = waitlist.filter(
-                        (_, index) => index !== indexToRemove
-                    );
-                    setWaitlist(newWaitlist);
+                    updateList(waitlist, setWaitlist);
                     break;
                 case "Serving":
-                    toMove = serving[indexToRemove];
-                    const newServing = serving.filter(
-                        (_, index) => index !== indexToRemove
-                    );
-                    setServing([newServing]);
+                    updateList(serving, setServing);
                     break;
                 case "Completed":
-                    toMove = completed[indexToRemove];
-                    const newCompleted = completed.filter(
-                        (_, index) => index !== indexToRemove
-                    );
-                    setCompleted(newCompleted);
+                    updateList(completed, setCompleted);
                     break;
                 default:
                     return;
             }
-
+ 
+            if (!toMove || !toMove.first_name || !toMove.last_name) {
+                console.error('Invalid user data:', toMove);
+                return;
+            }
+ 
+            const addToNewList = (setList) => {
+                setList(prevList => [...prevList, toMove]);
+            };
+    
             switch (newStatus) {
                 case "Waitlist":
-                    setWaitlist([...waitlist, toMove]);
+                    addToNewList(setWaitlist);
                     break;
                 case "Serving":
-                    setServing([...serving, toMove]);
+                    addToNewList(setServing);
                     break;
                 case "Completed":
-                    setCompleted([...completed, toMove]);
+                    addToNewList(setCompleted);
                     break;
                 default:
                     return;
@@ -107,6 +102,7 @@ const Home = (props) => {
             console.log(err);
         }
     };
+    
 
     return (
         <div className="home-page">
