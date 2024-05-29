@@ -13,7 +13,7 @@ const StatusList = (props) => {
     changeStatus,
     showFormForList,
     showWhatsapp,
-    showDelete,
+    deleteUser,
   } = props;
   const [userList, setUserList] = useState(users);
 
@@ -27,22 +27,6 @@ const StatusList = (props) => {
         whatsappTo: phone_number,
       });
       console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const deleteUser = async (id) => {
-    console.log(id);
-    try {
-      await axios.delete(`/business`, {
-        data: {
-          customer_id: id,
-        },
-      });
-      setUserList((prevUserList) =>
-        prevUserList.filter((user) => user.id !== id)
-      );
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +65,7 @@ const StatusList = (props) => {
                   <img id="next-button" src={nextButton} alt={">"} />
                 </button>
               )}
-              {showDelete && (
+              {deleteUser && (
                 <button
                   onClick={() => {
                     console.log(user.id);
