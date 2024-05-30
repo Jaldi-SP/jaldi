@@ -12,12 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Business = void 0;
 const typedjson_1 = require("typedjson");
 let Business = class Business {
-    constructor(id, name, username, password, phone_number) {
+    constructor(id, name, username, password, phone_number, email) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.phone_number = phone_number;
+        this.email = email;
     }
 };
 exports.Business = Business;
@@ -41,7 +42,11 @@ __decorate([
     (0, typedjson_1.jsonMember)(String),
     __metadata("design:type", String)
 ], Business.prototype, "phone_number", void 0);
+__decorate([
+    (0, typedjson_1.jsonMember)(String),
+    __metadata("design:type", String)
+], Business.prototype, "email", void 0);
 exports.Business = Business = __decorate([
     typedjson_1.jsonObject,
-    __metadata("design:paramtypes", [String, String, String, String, String])
+    __metadata("design:paramtypes", [String, String, String, String, String, String])
 ], Business);

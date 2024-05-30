@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "devStart": "nodemon index.js"
+    "devStart": "cd ../frontend && npm run build && cd ../backend && nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +23,8 @@
     "twilio": "^5.0.4",
     "typedjson": "^1.8.0",
     "typescript": "^5.4.5",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

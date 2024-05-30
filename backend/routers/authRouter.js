@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs')
 const { v4: uuidv4 } = require('uuid')
 const { TypedJSON } = require('typedjson')
 const { Business } = require('../dist/models/business')
+const { parsePhoneNumberFromString } = require('libphonenumber-js')
+const validator = require('validator');
 
 const authRouter = express.Router()
 
@@ -19,6 +21,16 @@ authRouter.post('/register', async (req, res) => {
         return res.status(409).send('Username Already Taken')
     }
 
+    const phoneNumber = parsePhoneNumberFromString(business.phone_number, 'IN');
+    if (business.phone_number && (!phoneNumber || !phoneNumber.isValid() || phoneNumber.country !== 'IN')) {
+        return res.status(400).send('Invalid phone number. Ensure it is a valid Indian number.');
+    }
+    business.phone_number = phoneNumber ? phoneNumber.format('E.164') : null;
+
+    if (business.email && !validator.isEmail(business.email)) {
+        return res.status(400).send('Invalid email address.');
+    }
+
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(business.password, salt)
 
@@ -29,7 +41,8 @@ authRouter.post('/register', async (req, res) => {
         business.name, 
         business.username, 
         hash,
-        business.phone_number || null
+        business.phone_number || null,
+        business.email || null
     ])
     newBusiness = newBusiness[0]
 

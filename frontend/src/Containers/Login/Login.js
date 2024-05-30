@@ -9,14 +9,22 @@ const Login = (props) => {
   const { setAuthenticated } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [signUpUsername, setSignUpUsername] = useState("");
+  const [signUpPassword, setSignUpPassword] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
+  const [signUpPhone, setSignUpPhone] = useState("");
+  const [signUpBusinessName, setSignUpBusinessName] = useState("");
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  const handleUsernameChange = (event) => setUsername(event.target.value);
+  const handlePasswordChange = (event) => setPassword(event.target.value);
+  const handleSignUpUsernameChange = (event) =>
+    setSignUpUsername(event.target.value);
+  const handleSignUpPasswordChange = (event) =>
+    setSignUpPassword(event.target.value);
+  const handleSignUpEmailChange = (event) => setSignUpEmail(event.target.value);
+  const handleSignUpPhoneChange = (event) => setSignUpPhone(event.target.value);
+  const handleSignUpBusinessNameChange = (event) =>
+    setSignUpBusinessName(event.target.value);
 
   const handleSubmit = async () => {
     try {
@@ -29,10 +37,25 @@ const Login = (props) => {
     setPassword("");
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSubmit();
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post("/auth/register", {
+        username: signUpUsername,
+        password: signUpPassword,
+        email: signUpEmail,
+        phone_number: signUpPhone,
+        name: signUpBusinessName,
+      });
+      setAuthenticated(true);
+      alert("Sign-up successful");
+    } catch (err) {
+      console.log(err);
     }
+    setSignUpUsername("");
+    setSignUpPassword("");
+    setSignUpEmail("");
+    setSignUpPhone("");
+    setSignUpBusinessName("");
   };
 
   return (
@@ -49,13 +72,60 @@ const Login = (props) => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
-          onKeyDown={handleKeyPress}
+          onKeyDown={(event) => {
+            event.key === "Enter" && handleSubmit();
+          }}
           placeholder={"Password"}
         />
         <ActionButton
           label="Sign in"
           id="sign-in-button"
           onClick={handleSubmit}
+        />
+      </div>
+      <div className="separator">
+        <span>New here? Sign up below</span>
+      </div>
+      <div className="signup-form">
+        <Label text="Username" />
+        <Input
+          value={signUpUsername}
+          onChange={handleSignUpUsernameChange}
+          placeholder={"Username"}
+        />
+        <Label text="Business Name" />
+        <Input
+          value={signUpBusinessName}
+          onChange={handleSignUpBusinessNameChange}
+          placeholder={"Business Name"}
+        />
+        <Label text="Business Email" />
+        <Input
+          value={signUpEmail}
+          onChange={handleSignUpEmailChange}
+          placeholder={"Business Email"}
+        />
+        <Label text="Business Phone" />
+        <Input
+          type="tel"
+          value={signUpPhone}
+          onChange={handleSignUpPhoneChange}
+          placeholder={"Business Phone"}
+        />
+        <Label text="Password" />
+        <Input
+          type="password"
+          value={signUpPassword}
+          onChange={handleSignUpPasswordChange}
+          placeholder={"Password"}
+          onKeyDown={(event) => {
+            event.key === "Enter" && handleSignUp();
+          }}
+        />
+        <ActionButton
+          label="Sign Up"
+          id="sign-up-button"
+          onClick={handleSignUp}
         />
       </div>
     </div>

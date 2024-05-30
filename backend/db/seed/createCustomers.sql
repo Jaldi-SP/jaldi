@@ -1,8 +1,8 @@
-create table customers(
-    id uuid primary key,
-    first_name varchar not null,
-    last_name varchar not null,
-    phone_number text not null,
-    status varchar not null,
-    business_id uuid references businesses(id)
+CREATE TABLE customers (
+    id UUID PRIMARY KEY,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    phone_number TEXT NOT NULL,
+    status VARCHAR NOT NULL,
+    business_id UUID REFERENCES businesses(id) ON DELETE CASCADE ON UPDATE CASCADE
 )
