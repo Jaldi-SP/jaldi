@@ -50,6 +50,16 @@ const StatusList = (props) => {
                   <img id="whatsapp-button" src={whatsappButton} alt={">"} />
                 </button>
               )}
+              {deleteUser && (
+                <button
+                  onClick={() => {
+                    console.log(user.id);
+                    deleteUser(user.id);
+                  }}
+                >
+                  <img id="delete-button" src={deleteButton} alt={">"} />
+                </button>
+              )}
               {changeStatus && (
                 <button
                   onClick={() =>
@@ -63,16 +73,6 @@ const StatusList = (props) => {
                   }
                 >
                   <img id="next-button" src={nextButton} alt={">"} />
-                </button>
-              )}
-              {deleteUser && (
-                <button
-                  onClick={() => {
-                    console.log(user.id);
-                    deleteUser(user.id);
-                  }}
-                >
-                  <img id="delete-button" src={deleteButton} alt={">"} />
                 </button>
               )}
             </div>
