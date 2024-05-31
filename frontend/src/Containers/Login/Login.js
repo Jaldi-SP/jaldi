@@ -33,7 +33,6 @@ const Login = (props) => {
     } catch (err) {
       console.log(err);
     }
-    setUsername("");
     setPassword("");
   };
 

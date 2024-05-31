@@ -3,7 +3,6 @@ const businessRouter = express.Router()
 const { v4: uuidv4 } = require('uuid')
 businessRouter.use(express.urlencoded({ extended: true }));
 const { TypedJSON } = require('typedjson')
-const { Business } = require('../dist/models/business')
 const { Customer} = require('../dist/models/customer')
 const customerSerializer = new TypedJSON(Customer)
 const { parsePhoneNumberFromString } = require('libphonenumber-js');
