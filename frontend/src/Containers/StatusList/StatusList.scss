@@ -1,8 +1,8 @@
 @import "./../../variables.scss";
 
 .status-list-container {
-    height: 750px;
-    width: 400px;
+    height: 70vh;
+    width: 350px;
     padding: 30px 24px 30px 24px;
     margin-right: 40px;
     background-color: $status-list-background;
@@ -45,7 +45,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 360px;
+            width: 310px;
             background-color: $white;
             border-radius: 5px;
             height: 60px;
