@@ -110,6 +110,9 @@ massive(CONNECTION_STRING)
         app.listen(SERVER_PORT, () => {
             console.log(`Server running on port ${SERVER_PORT}`)
         })
+
+        const startCronJob = require('./dist/utils/moveToInactive.js');
+        startCronJob(db);
     })
     .catch((err) => {
         console.error('Error connecting to the database:', err)

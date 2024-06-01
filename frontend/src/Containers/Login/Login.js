@@ -29,17 +29,15 @@ const Login = (props) => {
     const handleSignUpBusinessNameChange = (event) =>
         setSignUpBusinessName(event.target.value);
 
-    const handleSubmit = async () => {
-        try {
-            const res = await axios.post("/auth/login", { username, password });
-            console.log(res);
-            setAuthenticated(true);
-        } catch (err) {
-            console.log(err);
-        }
-        setUsername("");
-        setPassword("");
-    };
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post("/auth/login", { username, password });
+      setAuthenticated(true);
+    } catch (err) {
+      console.log(err);
+    }
+    setPassword("");
+  };
 
     const handleSignUp = async () => {
         try {
