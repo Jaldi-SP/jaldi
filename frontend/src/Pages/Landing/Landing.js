@@ -6,10 +6,7 @@ const Landing = (props) => {
     const {setAuthenticated} = props;
     return (
         <div className="landing-page">
-            <div className='landing-background'></div>
-            <div className='login-container'>
-                <Login setAuthenticated={setAuthenticated}/>
-            </div>
+            <Login setAuthenticated={setAuthenticated}/>
         </div>
     )
 }

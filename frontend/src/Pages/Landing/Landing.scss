@@ -2,12 +2,9 @@
 
 .landing-page {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    .landing-background {
-        background-size: auto;
-        background-color: $dark-purple;
-        width: calc(100% - $login-container-width); // Subtracting the width of the login-container
-        height: 100vh;
-    }
+    background-size: auto;
+    background-color: $dark-purple;
 }
