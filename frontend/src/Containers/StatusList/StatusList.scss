@@ -2,7 +2,9 @@
 
 .status-list-container {
     height: 70vh;
-    width: 350px;
+    min-width: 350px;
+    max-width: 550px;
+    width: 100%;
     padding: 30px 24px 30px 24px;
     margin-right: 40px;
     background-color: $status-list-background;
@@ -39,13 +41,14 @@
         width: 100%;
         overflow-y: auto; // Enable vertical scrolling
         overflow-x: hidden; // Hide horizontal scrolling
-        padding-right: 10px; // Add some padding for better UI
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
         .user {
             margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 310px;
             background-color: $white;
             border-radius: 5px;
             height: 60px;

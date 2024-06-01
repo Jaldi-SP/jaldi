@@ -1,22 +1,18 @@
 @import './../../variables.scss';
 
 .home-page {
-    background-color: $dark-purple;
     height: 100vh;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    #company-name-title {
-        background-color: $white;
-        font-size: x-large;
-        padding: 20px 50px;
-        border-radius: 10px;
-    }
     .home-page-info {
+        padding-left: 50px;
         display: flex;
         justify-content: space-around;
         align-items: center;
-        margin-top: 30px;
+        background-color: $dark-purple;
+        height: 100%;
+        width: 100%;
     }
 }
