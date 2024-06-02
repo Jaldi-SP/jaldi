@@ -26,6 +26,7 @@ const app = express()
 
 const authRouter = require('./routers/authRouter.js')
 const businessRouter = require('./routers/businessRouter.js')
+const customerRouter = require('./routers/customerRouter.js')
 
 // // // // MIDDLEWARES // // // //
 app.use(express.static(`${__dirname}/../frontend/build`));
@@ -123,6 +124,7 @@ massive(CONNECTION_STRING)
 // // // // AUTH CONTROLLER // // // //
 app.use(`/auth`, authRouter)
 app.use(`/business`, businessRouter)
+app.use(`/customer`, customerRouter)
 // app.post(`/auth/register`, authController.register);
 // app.post(`/auth/login`, authController.login);
 // app.post(`/auth/logout`, authController.logout);
