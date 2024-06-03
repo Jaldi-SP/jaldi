@@ -4,7 +4,7 @@ const session = require('express-session')
 const massive = require('massive')
 const fs = require('fs')
 const path = require('path')
-const morgan = require('morgan');
+const morgan = require('morgan')
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env
 
@@ -23,16 +23,16 @@ const app = express()
 
 // // // // ROUTERS // // // //
 
-
 const authRouter = require('./routers/authRouter.js')
-const businessRouter = require('./routers/businessRouter.js')
+const { businessRouter } = require('./routers/businessRouter.js')
+const customerRouter = require('./routers/customerRouter.js')
 
 // // // // MIDDLEWARES // // // //
-app.use(express.static(`${__dirname}/../frontend/build`));
+app.use(express.static(`${__dirname}/../frontend/build`))
 
 app.use(express.json())
 
-app.use(morgan('dev'));
+app.use(morgan('dev'))
 
 app.use(
     session({
@@ -111,8 +111,8 @@ massive(CONNECTION_STRING)
             console.log(`Server running on port ${SERVER_PORT}`)
         })
 
-        const startCronJob = require('./dist/utils/moveToInactive.js');
-        startCronJob(db);
+        const startCronJob = require('./dist/utils/moveToInactive.js')
+        startCronJob(db)
     })
     .catch((err) => {
         console.error('Error connecting to the database:', err)
@@ -123,6 +123,7 @@ massive(CONNECTION_STRING)
 // // // // AUTH CONTROLLER // // // //
 app.use(`/auth`, authRouter)
 app.use(`/business`, businessRouter)
+app.use(`/customer`, customerRouter)
 // app.post(`/auth/register`, authController.register);
 // app.post(`/auth/login`, authController.login);
 // app.post(`/auth/logout`, authController.logout);
