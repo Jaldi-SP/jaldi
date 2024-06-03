@@ -7,6 +7,10 @@ const { Customer } = require('../dist/models/customer')
 const customerSerializer = new TypedJSON(Customer)
 const { parsePhoneNumberFromString } = require('libphonenumber-js')
 const twilio = require('twilio')
+const {
+    StatusEnum,
+    initializeStatusLists,
+} = require('../dist/utils/initializeStatusLists')
 
 businessRouter
     .route('/')
@@ -18,17 +22,7 @@ businessRouter
             }
             const db = req.app.get('db')
             const users = await db.business.getCustomers(user.id)
-            const statusLists = {}
-
-            Object.values(StatusEnum).forEach((status) => {
-                statusLists[status] = []
-            })
-
-            users.forEach(({ status, customers }) => {
-                if (statusLists[status]) {
-                    statusLists[status] = customers
-                }
-            })
+            const statusLists = initializeStatusLists(users);
 
             res.status(200).send(statusLists)
         } catch (error) {
@@ -270,12 +264,6 @@ businessRouter.post('/whatsappResponse', async (req, res) => {
 const ResponseEnum = {
     CONFIRM: 'Confirm',
     CANCEL: 'Cancel',
-}
-const StatusEnum = {
-    WAITLIST: 'Waitlist',
-    SERVING: 'Serving',
-    COMPLETED: 'Completed',
-    INACTIVE: 'Inactive',
 }
 
 const formatForWhatsapp = (number) => `whatsapp:${number.format('E.164')}`
