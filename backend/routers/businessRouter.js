@@ -14,7 +14,7 @@ businessRouter
         try {
             const { user } = req.session;
             if (!user) {
-                return res.redirect(401, '../'); 
+                return res.redirect('../'); 
             }
             const db = req.app.get('db');
             const users = await db.business.getCustomers(user.id);
@@ -122,13 +122,12 @@ businessRouter
     })
     .delete(async (req, res) => {
         try {
-            console.log(req.body)
             const { user } = req.session;
-            const { customer_id } = req.body;
-    
             if (!user) {
                 return res.status(401).send('Unauthorized');
             }
+
+            const { customer_id } = req.body;
     
             const db = req.app.get('db');
             const deletedCustomer = await db.business.deleteCustomer(customer_id, user.id);
@@ -242,4 +241,4 @@ const formatForWhatsapp = (number) => `whatsapp:${number.format('E.164')}`;
 const addTelPrefix = (number) => `tel:${number}`;
 const removeWhatsappPrefix = (number) => number.replace('whatsapp:', '');
 
-module.exports = businessRouter
+module.exports = {businessRouter, StatusEnum}
