@@ -21,6 +21,11 @@ function App() {
                 setShowServing(false);
                 setShowCompleted(false);
                 setShowInvalid(false);
+            } else {
+                setShowWaitlist(true);
+                setShowServing(true);
+                setShowCompleted(true);
+                setShowInvalid(false);
             }
         };
 
