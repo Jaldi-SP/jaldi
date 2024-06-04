@@ -15,13 +15,17 @@
         width: 450px;
     }
 
+    &.slide-in-full {
+        width: 100vw;
+    }
+
     &.slide-out {
         width: 0;
     }
 
     .header {
         border-bottom: solid #d4d4d4 1px;
-        height: 5%;
+        height: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -41,7 +45,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 8%;
+        height: 100px;
         width: 100%;
     }
 }

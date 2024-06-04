@@ -1,8 +1,24 @@
-.App {
-    display: flex;
-    .nav-bar-container {
-        height: 100vh;
-        background: red;
-        width: 80px;
+@import "./variables.scss";
+
+@media (min-width: 1451px) {
+    .App {
+        display: flex;
+        .nav-bar-container {
+            height: 100vh;
+            width: 80px;
+        }
+    }
+}
+
+
+@media (max-width: 1450px) {
+    .App{
+        .nav-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: $bottom-nav-height;
+        }
     }
 }

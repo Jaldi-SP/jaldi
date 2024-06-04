@@ -1,72 +1,147 @@
 @import "./../../variables.scss";
 
-.status-list-container {
-    height: 70vh;
-    min-width: 350px;
-    max-width: 550px;
-    width: 100%;
-    padding: 30px 24px 30px 24px;
-    margin-right: 40px;
-    background-color: $status-list-background;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 10px;
-
-    .status-list-header {
-        padding-left: 10px;
-        padding-right: 10px;
-        display: flex;
+@media (min-width: 1451px) {
+    .status-list-container {
+        height: 70vh;
+        min-width: 280px;
+        max-width: 550px;
         width: 100%;
-        height: 30px;
-        margin-bottom: 40px;
-        border-bottom: 1px black solid;
-        h3 {
-            font-size: large;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        img {
-            width: 18px;
-            margin-bottom: 40px;
-            position: sticky;
-            right: 0;
-        }
-    }
-
-    .user-list {
-        height: calc(100% - 70px); // Adjust to fill remaining height
-        width: 100%;
-        overflow-y: auto; // Enable vertical scrolling
-        overflow-x: hidden; // Hide horizontal scrolling
+        padding: 30px 24px 30px 24px;
+        margin-right: 40px;
+        background-color: $status-list-background;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        .user {
-            margin-bottom: 15px;
+        align-items: center;
+        border-radius: 10px;
+    
+        .status-list-header {
+            padding-left: 10px;
+            padding-right: 10px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: $white;
-            border-radius: 5px;
-            height: 60px;
-            padding: 0px 20px;
-
-            .button-tray {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px black solid;
+            h3 {
+                font-size: large;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            img {
+                width: 18px;
+                margin-bottom: 40px;
+                position: sticky;
+                right: 0;
+            }
+        }
+    
+        .user-list {
+            height: calc(100% - 70px); // Adjust to fill remaining height
+            width: 100%;
+            overflow-y: auto; // Enable vertical scrolling
+            overflow-x: hidden; // Hide horizontal scrolling
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            .user {
+                margin-bottom: 15px;
                 display: flex;
                 justify-content: space-between;
-                width: 90px;
-                button {
+                align-items: center;
+                background-color: $white;
+                border-radius: 5px;
+                height: 60px;
+                padding: 0px 20px;
+    
+                .button-tray {
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    #whatsapp-button {
-                        width: 23px;
+                    justify-content: space-between;
+                    width: 90px;
+                    button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        #whatsapp-button {
+                            width: 23px;
+                        }
+                        #next-button {
+                            width: 30px;
+                        }
                     }
-                    #next-button {
-                        width: 30px;
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 1450px){
+    .status-list-container {
+        height: calc(100% - $bottom-nav-height);
+        width: 100%;
+        position: absolute;
+        top: 0;
+        background-color: $status-list-background;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .status-list-header {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-bottom: 1px black solid;
+            h3 {
+                font-size: large;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .add-to-list-button {
+                position: sticky;
+                right: 20px;
+                img {
+                    width: 18px;
+                }
+            }
+        }
+        .user-list {
+            width: 100%;
+            height: calc(100% - 60px);
+            overflow-y: auto; // Enable vertical scrolling
+            overflow-x: hidden; // Hide horizontal scrolling
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px 0;
+            .user {
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: $white;
+                border-radius: 5px;
+                height: 60px;
+                min-width: 300px;
+                padding: 0 20px;
+                .button-tray {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 90px;
+                    button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        #whatsapp-button {
+                            width: 23px;
+                        }
+                        #next-button {
+                            width: 30px;
+                        }
                     }
                 }
             }

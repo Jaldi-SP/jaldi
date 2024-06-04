@@ -13,6 +13,26 @@ function App() {
     const [showCompleted, setShowCompleted] = useState(true);
     const [showInvalid, setShowInvalid] = useState(false);
 
+
+    useEffect(() => {
+        const checkViewportWidth = () => {
+            if (window.innerWidth <= 1450) {
+                setShowWaitlist(true);
+                setShowServing(false);
+                setShowCompleted(false);
+                setShowInvalid(false);
+            }
+        };
+
+        checkViewportWidth();
+
+        // Optionally, you can add an event listener to update the state on window resize
+        window.addEventListener('resize', checkViewportWidth);
+
+        // Cleanup the event listener on component unmount
+        return () => window.removeEventListener('resize', checkViewportWidth);
+    }, [authenticated]);
+
     useEffect(() => {
         const checkUserAuthentication = async () => {
             try {

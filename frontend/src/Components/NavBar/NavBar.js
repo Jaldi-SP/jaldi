@@ -22,6 +22,7 @@ const NavBar = ({
             <div className="button-routes">
                 <span
                     className="icon"
+                    id="home-icon"
                     onClick={() => {
                         setShowWaitlist(true);
                         setShowServing(true);
@@ -65,7 +66,7 @@ const NavBar = ({
                     <Icon name="check-square" size={30} color="#2f243aff" />
                 </span>
             </div>
-            <span className="logout-icon" onClick={logout}>
+            <span className="icon logout-icon" onClick={logout}>
                 <Icon name="log-out" size={30} color="#2f243aff" />
             </span>
         </div>
