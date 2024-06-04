@@ -36,7 +36,12 @@ businessRouter
             if (!user) {
                 return res.status(401).send('Unauthorized')
             }
+
             const customer = customerSerializer.parse(req.body)
+
+            if (!Object.values(StatusEnum).includes(customer.status)) {
+                return res.status(400).send('Invalid status provided.')
+            }
 
             const phoneNumber = parsePhoneNumberFromString(
                 customer.phone_number,
