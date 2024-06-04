@@ -8,7 +8,10 @@ const { Business } = require('../dist/models/business')
 const customerSerializer = new TypedJSON(Customer)
 const businessSerializer = new TypedJSON(Business)
 const { parsePhoneNumberFromString } = require('libphonenumber-js')
-const { StatusEnum } = require('./businessRouter')
+const {
+    StatusEnum,
+    initializeStatusLists,
+} = require('../dist/utils/initializeStatusLists')
 
 customerRouter.param('businessId', async (req, res, next, businessId) => {
     const db = req.app.get('db')
@@ -28,9 +31,23 @@ customerRouter.param('businessId', async (req, res, next, businessId) => {
 
 customerRouter
     .route('/:businessId')
-    .get((req, res) => {
-        const { name, phone_number, email } = req.business
-        res.status(200).json({ name, phone_number, email })
+    .get(async (req, res) => {
+        try {
+            const { name, phone_number, email } = req.business
+            const db = req.app.get('db')
+            const users = await db.business.getCustomers(req.business.id)
+            const statusLists = initializeStatusLists(users)
+            const waitlistCustomers = statusLists[StatusEnum.WAITLIST]
+            res.status(200).json({
+                name,
+                phone_number,
+                email,
+                people_waiting: waitlistCustomers.length,
+            })
+        } catch (error) {
+            console.error('Error fetching business:', error)
+            res.status(500).send({ error: 'Internal Server Error' })
+        }
     })
     .post(async (req, res) => {
         try {
@@ -108,17 +125,7 @@ customerRouter.get('/:businessId/visits/:customerId', async (req, res) => {
         const db = req.app.get('db')
         const users = await db.business.getCustomers(req.business.id)
 
-        const statusLists = {}
-
-        Object.values(StatusEnum).forEach((status) => {
-            statusLists[status] = []
-        })
-
-        users.forEach(({ status, customers }) => {
-            if (statusLists[status]) {
-                statusLists[status] = customers
-            }
-        })
+        const statusLists = initializeStatusLists(users)
 
         const waitlistCustomers = statusLists[StatusEnum.WAITLIST]
 
