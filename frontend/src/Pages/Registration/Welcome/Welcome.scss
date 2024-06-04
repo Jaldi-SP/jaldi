@@ -1,3 +1,5 @@
+@import "./../../variables.scss";
+
 .welcome-container {
   display: flex;
   justify-content: center;
@@ -30,7 +32,7 @@
 }
 
 .register-button {
-  background-color: #4a00e0;
+  background-color: $dark-purple;
   color: white;
   border: none;
   border-radius: 5px;
