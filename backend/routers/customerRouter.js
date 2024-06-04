@@ -42,7 +42,7 @@ customerRouter
                 name,
                 phone_number,
                 email,
-                People_waiting: waitlistCustomers.length,
+                people_waiting: waitlistCustomers.length,
             })
         } catch (error) {
             console.error('Error fetching business:', error)
