@@ -118,42 +118,45 @@ customerRouter
         }
     })
 
-customerRouter.get('/:businessId/visits/:customerId', async (req, res) => {
-    const { customerId } = req.params
+customerRouter
+    .route('/:businessId/visits/:customerId')
+    .get(async (req, res) => {
+        const { customerId } = req.params
 
-    try {
-        const db = req.app.get('db')
-        const users = await db.business.getCustomers(req.business.id)
+        try {
+            const db = req.app.get('db')
+            const users = await db.business.getCustomers(req.business.id)
 
-        const statusLists = initializeStatusLists(users)
+            const statusLists = initializeStatusLists(users)
 
-        const waitlistCustomers = statusLists[StatusEnum.WAITLIST]
+            const waitlistCustomers = statusLists[StatusEnum.WAITLIST]
 
-        const position = waitlistCustomers.findIndex(
-            (customer) => customer.id === customerId,
-        )
+            const position = waitlistCustomers.findIndex(
+                (customer) => customer.id === customerId,
+            )
 
-        if (position === -1) {
-            return res
-                .status(404)
-                .send({ error: 'Customer not found in the waitlist' })
+            if (position === -1) {
+                return res
+                    .status(404)
+                    .send({ error: 'Customer not found in the waitlist' })
+            }
+
+            const { first_name, last_name, phone_number } =
+                waitlistCustomers[position]
+
+            res.status(200).send({
+                customer: {
+                    first_name,
+                    last_name,
+                    phone_number,
+                    position: position + 1,
+                },
+            })
+        } catch (error) {
+            console.error('Error fetching customer position:', error)
+            res.status(500).send({ error: 'Internal Server Error' })
         }
-
-        const { first_name, last_name, phone_number } =
-            waitlistCustomers[position]
-
-        res.status(200).send({
-            customer: {
-                first_name,
-                last_name,
-                phone_number,
-                position: position + 1,
-            },
-        })
-    } catch (error) {
-        console.error('Error fetching customer position:', error)
-        res.status(500).send({ error: 'Internal Server Error' })
-    }
-})
+    })
+    .put(async (req, res) => {})
 
 module.exports = customerRouter
