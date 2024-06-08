@@ -10,13 +10,13 @@
     cursor: pointer;
 
     &.add-button {
-        background-color: $dark-purple;
+        background-color: $primary-dark;
         color: $white;
         margin-left: 4%;
     }
 
     &.sign-in-button, &.sign-up-button {
-        background-color: $dark-purple;
+        background-color: $primary-dark;
         color: $white;
         width: auto;
     }

@@ -31,7 +31,7 @@ const NavBar = ({
                         setShowInvalid(false);
                     }}
                 >
-                    <Icon name="home" size={30} color="#2f243aff" />
+                    <Icon name="home" size={30} color="#13293dff" />
                 </button>
                 <button
                     title="Waitlist"
@@ -43,7 +43,7 @@ const NavBar = ({
                         setShowInvalid(false);
                     }}
                 >
-                    <Icon name="clock" size={30} color="#2f243aff" />
+                    <Icon name="clock" size={30} color="#13293dff" />
                 </button>
                 <button
                     title="Serving"
@@ -55,7 +55,7 @@ const NavBar = ({
                         setShowInvalid(false);
                     }}
                 >
-                    <Icon name="loader" size={30} color="#2f243aff" />
+                    <Icon name="loader" size={30} color="#13293dff" />
                 </button>
                 <button
                     title="Completed"
@@ -67,11 +67,11 @@ const NavBar = ({
                         setShowInvalid(false);
                     }}
                 >
-                    <Icon name="check-square" size={30} color="#2f243aff" />
+                    <Icon name="check-square" size={30} color="#13293dff" />
                 </button>
             </div>
             <button title="Logout" className="icon logout-icon" onClick={logout}>
-                <Icon name="log-out" size={30} color="#2f243aff" />
+                <Icon name="log-out" size={30} color="#13293dff" />
             </button>
         </div>
     );
