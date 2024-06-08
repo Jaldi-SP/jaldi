@@ -18,10 +18,42 @@
             .icon {
                 padding: none;
                 margin-bottom: 10px;
+                position: relative; /* Required for tooltip positioning */
+                
+                &:hover::after {
+                    content: attr(title);
+                    position: absolute;
+                    bottom: 0%;
+                    left: 220%;
+                    transform: translateX(-50%);
+                    background-color: black;
+                    color: white;
+                    padding: 5px;
+                    border-radius: 3px;
+                    white-space: nowrap;
+                    z-index: 10;
+                    opacity: 0.75;
+                }
             }
         }
         .logout-icon {
             margin-bottom: 80px;
+            position: relative; /* Required for tooltip positioning */
+                
+            &:hover::after {
+                content: attr(title);
+                position: absolute;
+                bottom: 0%;
+                left: 220%;
+                transform: translateX(-50%);
+                background-color: black;
+                color: white;
+                padding: 5px;
+                border-radius: 3px;
+                white-space: nowrap;
+                z-index: 10;
+                opacity: 0.75;
+            }
         }
     }
 }
@@ -44,8 +76,18 @@
             }
         }
         .icon {
-            margin-left: 20px;
-            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 20px;
+            &::after {
+                content: attr(title);
+                display: block;
+                margin-top: 5px;
+                color: #2f243aff;
+                font-size: 12px;
+                text-align: center;
+            }
         }
     }
 }

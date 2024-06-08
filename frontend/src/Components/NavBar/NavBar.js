@@ -20,7 +20,8 @@ const NavBar = ({
     return (
         <div className="nav-bar">
             <div className="button-routes">
-                <span
+                <button
+                    title="Home"
                     className="icon"
                     id="home-icon"
                     onClick={() => {
@@ -31,8 +32,9 @@ const NavBar = ({
                     }}
                 >
                     <Icon name="home" size={30} color="#2f243aff" />
-                </span>
-                <span
+                </button>
+                <button
+                    title="Waitlist"
                     className="icon"
                     onClick={() => {
                         setShowWaitlist(true);
@@ -42,8 +44,9 @@ const NavBar = ({
                     }}
                 >
                     <Icon name="clock" size={30} color="#2f243aff" />
-                </span>
-                <span
+                </button>
+                <button
+                    title="Serving"
                     className="icon"
                     onClick={() => {
                         setShowWaitlist(false);
@@ -53,8 +56,9 @@ const NavBar = ({
                     }}
                 >
                     <Icon name="loader" size={30} color="#2f243aff" />
-                </span>
-                <span
+                </button>
+                <button
+                    title="Completed"
                     className="icon"
                     onClick={() => {
                         setShowWaitlist(false);
@@ -64,11 +68,11 @@ const NavBar = ({
                     }}
                 >
                     <Icon name="check-square" size={30} color="#2f243aff" />
-                </span>
+                </button>
             </div>
-            <span className="icon logout-icon" onClick={logout}>
+            <button title="Logout" className="icon logout-icon" onClick={logout}>
                 <Icon name="log-out" size={30} color="#2f243aff" />
-            </span>
+            </button>
         </div>
     );
 };
