@@ -157,6 +157,30 @@ customerRouter
             res.status(500).send({ error: 'Internal Server Error' })
         }
     })
-    .put(async (req, res) => {})
+    .put(async (req, res) => {
+        const { customerId, businessId } = req.params
+
+        try {
+            const db = req.app.get('db')
+
+            let customer = await db.customer.getCustomerById(
+                customerId,
+                businessId,
+            )
+            if (!customer) {
+                return res.status(404).send({ error: 'Customer not found' })
+            }
+
+            customer = await db.customer.updateCustomerStatus(
+                StatusEnum.COMPLETED,
+                customerId,
+            )
+
+            res.status(200).send(customer)
+        } catch (error) {
+            console.error('Error updating customer status:', error)
+            res.status(500).send({ error: 'Internal Server Error' })
+        }
+    })
 
 module.exports = customerRouter
