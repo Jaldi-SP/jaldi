@@ -1,0 +1,80 @@
+.confirmation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.confirmation-card {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.confirmation-card h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.checkmark-circle {
+  font-size: 3rem;
+  color: green;
+  margin-bottom: 10px;
+}
+
+.confirmation-card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.confirmation-card p {
+  margin-bottom: 10px;
+}
+
+.line-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.line-info div {
+  text-align: left;
+}
+
+.user-details {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.actions button {
+  background-color: #4a00e0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions button:hover {
+  background-color: #3b00b3;
+}
+
+.powered-by {
+  margin-top: 20px;
+  font-size: 0.875rem;
+  color: #555;
+}
