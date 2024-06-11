@@ -71,7 +71,7 @@ const NavBar = ({
                 </button>
             </div>
             <button title="Logout" className="icon logout-icon" onClick={logout}>
-                <Icon name="log-out" size={30} color="#13293dff" />
+                <Icon name="log-out" size={30} color="#FF0000" />
             </button>
         </div>
     );
