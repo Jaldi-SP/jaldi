@@ -62,11 +62,19 @@ const ConfirmationPage = () => {
                 <div className="checkmark-circle">✔️</div>
                 <h2>Thanks for waiting!</h2>
                 <p>Stay on this page to get notified when it's your turn.</p>
-                <div>
-                    <p>Place in line</p>
-                    <p>
-                        <strong>{customerDetails.position}</strong>
-                    </p>
+                <div className="line-info">
+                    <div>
+                        <p>Place in line</p>
+                        <p>
+                            <strong>{customerDetails.position}</strong>
+                        </p>
+                    </div>
+                    <div>
+                        <p>People currently waiting</p>
+                        <p>
+                            <strong>{businessDetails.waitingCount}</strong>
+                        </p>
+                    </div>
                 </div>
                 <div className="user-details">
                     <p>
