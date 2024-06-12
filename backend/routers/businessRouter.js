@@ -63,7 +63,7 @@ businessRouter
             const db = req.app.get('db')
             const customerExists = await db.business.getCustomerFromPhone(
                 customer.phone_number,
-                req.business.id,
+                user.id,
             )
             let newCustomer = {}
             if (customerExists.length !== 0) {
@@ -74,7 +74,7 @@ businessRouter
                     customer.last_name,
                     customer.phone_number,
                     customer.status,
-                    req.business.id,
+                    user.id,
                 )
                 newCustomer = updatedCustomer[0]
             } else {
@@ -85,7 +85,7 @@ businessRouter
                     customer.last_name,
                     customer.phone_number,
                     customer.status,
-                    req.business.id,
+                    user.id,
                 )
                 newCustomer = newUser[0]
             }
