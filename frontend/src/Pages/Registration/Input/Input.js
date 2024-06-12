@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
 import "./Input.scss";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const RegisterPage = () => {
     const { businessId } = useParams();
-    const history = useHistory();
+    const navigate = useNavigate();
 
-    const [name, setName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
-    const [email, setEmail] = useState("");
+    const [businessDetails, setBusinessDetails] = useState({
+        name: "",
+        email: "",
+        phone: "",
+    });
 
     useEffect(() => {
         const fetchBusinessDetails = async () => {
             try {
                 const response = await axios.get(`/business/${businessId}`);
-                const { name, email, phone, people_waiting } = response.data;
-                setName(name);
-                setPhoneNumber(phone);
-                setEmail(email)
-
-                setWaitingCount(people_waiting);
+                const { name, email, phone } = response.data;
+                setBusinessDetails({ name, email, phone });
             } catch (error) {
                 console.error("Error fetching business details:", error);
             }
@@ -28,51 +30,57 @@ const RegisterPage = () => {
         fetchBusinessDetails();
     }, [businessId]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Add your form submission logic here
-        console.log({ name, phoneNumber, email });
+        try {
+            const response = await axios.post(`/customer/${businessId}`, {
+                first_name: firstName,
+                last_name: lastName,
+                phone_number: phoneNumber,
+            });
+            console.log(response.data)
+            navigate(`/${businessId}/customer/${response.data.id}/confirmation`);
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
     };
 
     return (
         <div className="register-container">
             <div className="register-card">
-                <h1>{businessName}</h1>
+                <h1>{businessDetails.name}</h1>
                 <h2>Enter your details</h2>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Name *
+                        First Name *
                         <input
                             type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Name"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            placeholder="First Name"
                             required
                         />
                     </label>
                     <label>
-                        Phone number
+                        Last Name *
+                        <input
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            placeholder="Last Name"
+                            required
+                        />
+                    </label>
+                    <label>
+                        Phone Number *
                         <input
                             type="tel"
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="Phone number"
+                            placeholder="Phone Number"
                             required
                         />
                     </label>
-                    <label>
-                        Email
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email"
-                            required
-                        />
-                    </label>
-                    <p>
-                        Estimated wait: <strong>{estimatedWait}</strong>
-                    </p>
                     <button type="submit" className="join-button">
                         Join the line
                     </button>
