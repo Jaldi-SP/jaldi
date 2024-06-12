@@ -1,6 +1,6 @@
 @import "./variables.scss";
 
-@media (min-width: 1451px) {
+@media (min-width: 1191px) {
     .App {
         display: flex;
         .nav-bar-container {
@@ -11,7 +11,7 @@
 }
 
 
-@media (max-width: 1450px) {
+@media (max-width: 1190px) {
     .App{
         .nav-bar-container {
             position: fixed;

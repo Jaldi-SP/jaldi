@@ -16,7 +16,7 @@ function App() {
 
     useEffect(() => {
         const checkViewportWidth = () => {
-            if (window.innerWidth <= 1450) {
+            if (window.innerWidth <= 1190) {
                 setShowWaitlist(true);
                 setShowServing(false);
                 setShowCompleted(false);

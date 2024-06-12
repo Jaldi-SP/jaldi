@@ -15,7 +15,7 @@ const AddCustomerForm = (props) => {
     const { listName, showForm, setShowForm, refreshBusinessInfo } = props;
 
     useEffect(() => {
-        if (showForm && window.innerWidth > 1450) {
+        if (showForm && window.innerWidth > 1190) {
             setDisplay("block");
             setTimeout(() => setAnimationClass("slide-in"), 10); // Small delay to ensure the display change is registered
         } else if (showForm) {

@@ -1,6 +1,6 @@
 @import "./../../variables.scss";
 
-@media (min-width: 1451px) {
+@media (min-width: 1191px) {
     .status-list-container {
         height: 80vh;
         min-width: 280px;
@@ -77,7 +77,7 @@
 }
 
 
-@media (max-width: 1450px){
+@media (max-width: 1190px){
     .status-list-container {
         height: calc(100% - $bottom-nav-height);
         width: 100%;
