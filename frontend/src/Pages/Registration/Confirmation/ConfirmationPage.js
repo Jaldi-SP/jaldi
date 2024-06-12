@@ -11,9 +11,14 @@ const ConfirmationPage = () => {
         phone: "",
         waitingCount: 0,
     });
+    const [customerDetails, setCustomerDetails] = useState({
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        position: 0,
+    });
 
     useEffect(() => {
-        
         const fetchBusinessDetails = async () => {
             try {
                 const response = await axios.get(`/customer/${businessId}`);
@@ -29,8 +34,27 @@ const ConfirmationPage = () => {
             }
         };
 
+        const fetchCustomerDetails = async () => {
+            try {
+                const response = await axios.get(
+                    `/customer/${businessId}/visits/${customerId}`
+                );
+                const { customer } = response.data;
+                setCustomerDetails({
+                    first_name: customer.first_name,
+                    last_name: customer.last_name,
+                    phone_number: customer.phone_number,
+                    position: customer.position,
+                });
+            } catch (error) {
+                console.error("Error fetching customer details:", error);
+            }
+        };
+
         fetchBusinessDetails();
-    }, [businessId]);
+        fetchCustomerDetails();
+    }, [businessId, customerId]);
+
     return (
         <div className="confirmation-container">
             <div className="confirmation-card">
@@ -38,29 +62,27 @@ const ConfirmationPage = () => {
                 <div className="checkmark-circle">✔️</div>
                 <h2>Thanks for waiting!</h2>
                 <p>Stay on this page to get notified when it's your turn.</p>
-                <div className="line-info">
-                    <div>
-                        <p>Place in line</p>
-                        <p>
-                            <strong>{businessDetails.waitingCount}</strong>
-                        </p>
-                    </div>
+                <div>
+                    <p>Place in line</p>
+                    <p>
+                        <strong>{customerDetails.position}</strong>
+                    </p>
                 </div>
                 <div className="user-details">
                     <p>
                         <strong>Name</strong>
                         <br />
-                        {userDetails.name}
+                        {customerDetails.first_name} {customerDetails.last_name}
                     </p>
                     <p>
                         <strong>Phone</strong>
                         <br />
-                        {userDetails.phone}
+                        {customerDetails.phone_number}
                     </p>
                     <p>
                         <strong>Note</strong>
                         <br />
-                        lorem ipsum dolor sit amet, consectetur
+                        Lorem ipsum dolor sit amet, consectetur
                     </p>
                 </div>
                 <div className="actions">
