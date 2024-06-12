@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./ConfirmationPage.scss";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ConfirmationPage = () => {
     const { businessId, customerId } = useParams();
+    const navigate = useNavigate();
     const [businessDetails, setBusinessDetails] = useState({
         name: "",
         email: "",
@@ -55,6 +56,17 @@ const ConfirmationPage = () => {
         fetchCustomerDetails();
     }, [businessId, customerId]);
 
+    const handleLeaveWaitlist = async () => {
+        try {
+            await axios.put(`/customer/${businessId}/visits/${customerId}`);
+            alert("You have successfully left the waitlist.");
+            navigate(`/${businessId}/customer`);
+        } catch (error) {
+            alert("Error leaving the waitlist. Please try again.");
+            console.error("Error leaving waitlist:", error);
+        }
+    };
+
     return (
         <div className="confirmation-container">
             <div className="confirmation-card">
@@ -94,7 +106,9 @@ const ConfirmationPage = () => {
                     </p>
                 </div>
                 <div className="actions">
-                    <button>Leave waitlist</button>
+                    <button onClick={handleLeaveWaitlist}>
+                        Leave waitlist
+                    </button>
                 </div>
                 <p className="powered-by">
                     Powered by <strong>ezwait</strong>
