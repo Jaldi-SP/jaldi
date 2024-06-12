@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
-import './Input.scss';
+import React, { useState, useEffect } from "react";
+import "./Input.scss";
+import { useParams, useHistory } from "react-router-dom";
 
-const RegisterPage = ({ businessName, estimatedWait }) => {
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
+const RegisterPage = () => {
+    const { businessId } = useParams();
+    const history = useHistory();
+
+    const [name, setName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+        const fetchBusinessDetails = async () => {
+            try {
+                const response = await axios.get(`/business/${businessId}`);
+                const { name, email, phone, people_waiting } = response.data;
+                setName(name);
+                setPhoneNumber(phone);
+                setEmail(email)
+
+                setWaitingCount(people_waiting);
+            } catch (error) {
+                console.error("Error fetching business details:", error);
+            }
+        };
+
+        fetchBusinessDetails();
+    }, [businessId]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,8 +70,12 @@ const RegisterPage = ({ businessName, estimatedWait }) => {
                             required
                         />
                     </label>
-                    <p>Estimated wait: <strong>{estimatedWait}</strong></p>
-                    <button type="submit" className="join-button">Join the line</button>
+                    <p>
+                        Estimated wait: <strong>{estimatedWait}</strong>
+                    </p>
+                    <button type="submit" className="join-button">
+                        Join the line
+                    </button>
                 </form>
             </div>
         </div>
