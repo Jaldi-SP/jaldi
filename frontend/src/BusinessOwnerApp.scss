@@ -1,0 +1,24 @@
+@import "./variables.scss";
+
+@media (min-width: 1191px) {
+    .BusinessOwnerApp {
+        display: flex;
+        .nav-bar-container {
+            height: 100vh;
+            width: $side-nav-width;
+        }
+    }
+}
+
+
+@media (max-width: 1190px) {
+    .BusinessOwnerApp{
+        .nav-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: $bottom-nav-height;
+        }
+    }
+}
