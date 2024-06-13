@@ -42,10 +42,6 @@ app.use(
     }),
 )
 
-app.get('/', (req, res) => {
-    res.sendStatus(200)
-}) // health check
-
 const runSeedScript = async (db) => {
     try {
         const checkTablesPath = path.join(
@@ -130,3 +126,7 @@ app.use(`/customer`, customerRouter)
 // app.get(`/auth/user`, authController.getUser);
 
 // // // // BUSINESS INFO CONTROLLER // // //
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  });
