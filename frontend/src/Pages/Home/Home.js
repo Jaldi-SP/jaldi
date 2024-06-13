@@ -222,7 +222,6 @@ const Home = (props) => {
                 )}
                 {showSetting && (
                     <div>
-                        <h1>QR code</h1>
                         <QRCodeComponent/>
                     </div>
                 )}
