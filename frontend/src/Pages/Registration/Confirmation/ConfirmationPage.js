@@ -78,7 +78,11 @@ const ConfirmationPage = () => {
                     <div>
                         <p>Place in line</p>
                         <p>
-                            <strong>{customerDetails.position}</strong>
+                            <strong>
+                                {customerDetails.position === 0
+                                    ? "Not in line"
+                                    : customerDetails.position}
+                            </strong>
                         </p>
                     </div>
                     <div>
