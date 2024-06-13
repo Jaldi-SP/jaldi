@@ -1,16 +1,16 @@
-insert into businesses(
+insert into businesses (
     id,
     name,
     username,
     password,
     phone_number,
-    email,
+    email
 ) values (
     $1,
     $2,
     $3,
     $4,
     $5,
-    $6,
+    $6
 )
 returning *;
