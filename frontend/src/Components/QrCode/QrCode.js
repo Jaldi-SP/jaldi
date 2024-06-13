@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import QRCode from 'qrcode';
-import './QRCodeComponent.scss';
+import './QrCode.scss';
 
 const QRCodeComponent = () => {
   const [url, setUrl] = useState('');
   const canvasRef = useRef(null);
 
   useEffect(() => {
-    // Fetch the user ID
     fetch('/auth/getUser')
       .then(response => response.json())
       .then(data => {
