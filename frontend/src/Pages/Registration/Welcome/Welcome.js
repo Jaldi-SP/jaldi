@@ -17,11 +17,11 @@ const WelcomePage = () => {
         const fetchBusinessDetails = async () => {
             try {
                 const response = await axios.get(`/customer/${businessId}`);
-                const { name, email, phone, people_waiting } = response.data;
+                const { name, phone_number, email, people_waiting } = response.data;
                 setBusinessDetails({
                     name,
+                    phone: phone_number,
                     email,
-                    phone,
                     waitingCount: people_waiting,
                 });
             } catch (error) {

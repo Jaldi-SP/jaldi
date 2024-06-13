@@ -4,5 +4,5 @@ create table businesses(
     username varchar not null unique,
     password varchar not null,
     phone_number text unique,
-    email text 
+    email text unique,
 )
