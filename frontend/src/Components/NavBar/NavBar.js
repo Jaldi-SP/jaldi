@@ -85,7 +85,7 @@ const NavBar = ({
                         setShowSetting(true);
                     }}
                 >
-                    <Icon name="log-out" size={30} color="#FF0000" />
+                    <Icon name="settings" size={30} color="#13293dff" />
                 </button>
             </div>
             <button
