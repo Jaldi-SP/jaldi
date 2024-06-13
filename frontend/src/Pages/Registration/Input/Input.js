@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Input.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Input from "../../../Components/Input/Input";
 
 const RegisterPage = () => {
     const { businessId } = useParams();
@@ -38,8 +39,10 @@ const RegisterPage = () => {
                 last_name: lastName,
                 phone_number: phoneNumber,
             });
-            console.log(response.data)
-            navigate(`/${businessId}/customer/${response.data.id}/confirmation`);
+            console.log(response.data);
+            navigate(
+                `/${businessId}/customer/${response.data.id}/confirmation`
+            );
         } catch (error) {
             console.error("Error submitting form:", error);
         }
@@ -73,11 +76,14 @@ const RegisterPage = () => {
                     </label>
                     <label>
                         Phone Number *
-                        <input
+                        <Input
                             type="tel"
                             value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="Phone Number"
+                            onChange={(event) =>
+                                setPhoneNumber(event.target.value)
+                            }
+                            placeholder={"Enter Phone Number"}
+                            prefix="+91"
                             required
                         />
                     </label>

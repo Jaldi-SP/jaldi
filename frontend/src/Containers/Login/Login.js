@@ -29,15 +29,15 @@ const Login = (props) => {
     const handleSignUpBusinessNameChange = (event) =>
         setSignUpBusinessName(event.target.value);
 
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.post("/auth/login", { username, password });
-      setAuthenticated(true);
-    } catch (err) {
-      console.log(err);
-    }
-    setPassword("");
-  };
+    const handleSubmit = async () => {
+        try {
+            const res = await axios.post("/auth/login", { username, password });
+            setAuthenticated(true);
+        } catch (err) {
+            console.log(err);
+        }
+        setPassword("");
+    };
 
     const handleSignUp = async () => {
         try {
@@ -118,7 +118,9 @@ const Login = (props) => {
                         type="tel"
                         value={signUpPhone}
                         onChange={handleSignUpPhoneChange}
-                        placeholder={"Business Phone"}
+                        placeholder={"Business Phone Number"}
+                        prefix="+91"
+                        required
                     />
                     <Label text="Password" />
                     <Input
