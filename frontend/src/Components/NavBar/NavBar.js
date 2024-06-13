@@ -8,6 +8,7 @@ const NavBar = ({
     setShowServing,
     setShowCompleted,
     setShowInvalid,
+    setShowSetting,
 }) => {
     const logout = async () => {
         try {
@@ -29,6 +30,7 @@ const NavBar = ({
                         setShowServing(true);
                         setShowCompleted(true);
                         setShowInvalid(false);
+                        setShowSetting(false);
                     }}
                 >
                     <Icon name="home" size={30} color="#13293dff" />
@@ -41,6 +43,7 @@ const NavBar = ({
                         setShowServing(false);
                         setShowCompleted(false);
                         setShowInvalid(false);
+                        setShowSetting(false);
                     }}
                 >
                     <Icon name="clock" size={30} color="#13293dff" />
@@ -53,6 +56,7 @@ const NavBar = ({
                         setShowServing(true);
                         setShowCompleted(false);
                         setShowInvalid(false);
+                        setShowSetting(false);
                     }}
                 >
                     <Icon name="loader" size={30} color="#13293dff" />
@@ -65,12 +69,30 @@ const NavBar = ({
                         setShowServing(false);
                         setShowCompleted(true);
                         setShowInvalid(false);
+                        setShowSetting(false);
                     }}
                 >
                     <Icon name="check-square" size={30} color="#13293dff" />
                 </button>
+                <button
+                    title="Settings"
+                    className="icon"
+                    onClick={() => {
+                        setShowWaitlist(false);
+                        setShowServing(false);
+                        setShowCompleted(false);
+                        setShowInvalid(false);
+                        setShowSetting(true);
+                    }}
+                >
+                    <Icon name="log-out" size={30} color="#FF0000" />
+                </button>
             </div>
-            <button title="Logout" className="icon logout-icon" onClick={logout}>
+            <button
+                title="Logout"
+                className="icon logout-icon"
+                onClick={logout}
+            >
                 <Icon name="log-out" size={30} color="#FF0000" />
             </button>
         </div>

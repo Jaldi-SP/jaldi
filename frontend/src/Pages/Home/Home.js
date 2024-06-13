@@ -3,6 +3,7 @@ import axios from "axios";
 import StatusList from "../../Containers/StatusList/StatusList";
 import "./Home.scss";
 import AddCustomerForm from "../../Components/AddCustomerForm/AddCustomerForm";
+import QRCodeComponent from "../../Components/QrCode/QrCode";
 
 const Home = (props) => {
     const {
@@ -12,6 +13,7 @@ const Home = (props) => {
         showServing,
         showCompleted,
         showInvalid,
+        showSetting,
     } = props;
     const [showForm, setShowForm] = useState(false);
     const [showingFormFor, setShowingFormFor] = useState("");
@@ -217,6 +219,12 @@ const Home = (props) => {
                         showFormForList={showFormForList}
                         showWhatsapp={true}
                     />
+                )}
+                {showSetting && (
+                    <div>
+                        <h1>QR code</h1>
+                        <QRCodeComponent/>
+                    </div>
                 )}
             </div>
             <AddCustomerForm
