@@ -12,6 +12,7 @@ function BusinessOwnerApp() {
     const [showServing, setShowServing] = useState(true);
     const [showCompleted, setShowCompleted] = useState(true);
     const [showInvalid, setShowInvalid] = useState(false);
+    const [showSetting, setShowSetting] = useState(false);
 
 
     useEffect(() => {
@@ -21,11 +22,13 @@ function BusinessOwnerApp() {
                 setShowServing(false);
                 setShowCompleted(false);
                 setShowInvalid(false);
+                setShowSetting(false);
             } else {
                 setShowWaitlist(true);
                 setShowServing(true);
                 setShowCompleted(true);
                 setShowInvalid(false);
+                setShowSetting(false);
             }
         };
 
@@ -62,6 +65,7 @@ function BusinessOwnerApp() {
                         setShowServing={setShowServing}
                         setShowCompleted={setShowCompleted}
                         setShowInvalid={setShowInvalid}
+                        setShowSetting = {setShowSetting}
                     />
                 </div>
                 <Home
@@ -71,6 +75,7 @@ function BusinessOwnerApp() {
                     showServing={showServing}
                     showCompleted={showCompleted}
                     showInvalid={showInvalid}
+                    showSetting={showSetting}
                 />
             </div>
         );
