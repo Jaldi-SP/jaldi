@@ -7,6 +7,7 @@ const Input = ({
   onChange,
   placeholder,
   prefix,
+  required = false,
   onKeyDown = () => {},
 }) => {
   return (
@@ -19,6 +20,7 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         onKeyDown={onKeyDown}
+        required={required}
       />
     </div>
   );
