@@ -24,4 +24,10 @@
     &.cancel-button {
         background-color: #d4d4d4;
     }
+
+    &.toggle-form {
+        background-color: $pine-green;
+        width: auto;
+        color: $white;
+    }
 }

@@ -94,9 +94,12 @@ const Login = (props) => {
                     {serverError && (
                         <span className="error">{serverError}</span>
                     )}
-                    <span className="toggle-text" onClick={toggleForm}>
-                        New here? Sign up below
-                    </span>
+                    <br />
+                    <ActionButton
+                        label="New here? Click here to sign up"
+                        id="toggle-form"
+                        onClick={toggleForm}
+                    />
                 </div>
             ) : (
                 <div className="signup-form">
@@ -142,12 +145,15 @@ const Login = (props) => {
                         id="sign-up-button"
                         onClick={handleSignUp}
                     />
+                    <br />
+                    <ActionButton
+                        label="Have an account? Sign in instead"
+                        id="toggle-form"
+                        onClick={toggleForm}
+                    />
                     {serverError && (
                         <span className="error">{serverError}</span>
                     )}
-                    <span className="toggle-text" onClick={toggleForm}>
-                        Already have an account? Sign in
-                    </span>
                 </div>
             )}
         </div>
