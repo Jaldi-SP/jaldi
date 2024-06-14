@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import "./Login.scss";
 import axios from "axios";
 import Input from "../../Components/Input/Input";
@@ -15,6 +16,7 @@ const Login = (props) => {
     const [signUpPhone, setSignUpPhone] = useState("");
     const [signUpBusinessName, setSignUpBusinessName] = useState("");
     const [isLogin, setIsLogin] = useState(true); // State to toggle between login and register
+    const [serverError, setServerError] = useState("");
 
     const handleUsernameChange = (event) => setUsername(event.target.value);
     const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -29,12 +31,12 @@ const Login = (props) => {
     const handleSignUpBusinessNameChange = (event) =>
         setSignUpBusinessName(event.target.value);
 
-    const handleSubmit = async () => {
+    const handleLogin = async () => {
         try {
             const res = await axios.post("/auth/login", { username, password });
             setAuthenticated(true);
         } catch (err) {
-            console.log(err);
+            setServerError(err.response.data);
         }
         setPassword("");
     };
@@ -51,7 +53,7 @@ const Login = (props) => {
             setAuthenticated(true);
             alert("Sign-up successful");
         } catch (err) {
-            console.log(err);
+            setServerError(err.response.data);
         }
         setSignUpUsername("");
         setSignUpPassword("");
@@ -80,15 +82,18 @@ const Login = (props) => {
                         value={password}
                         onChange={handlePasswordChange}
                         onKeyDown={(event) => {
-                            event.key === "Enter" && handleSubmit();
+                            event.key === "Enter" && handleLogin();
                         }}
                         placeholder={"Password"}
                     />
                     <ActionButton
                         label="Sign in"
                         id="sign-in-button"
-                        onClick={handleSubmit}
+                        onClick={handleLogin}
                     />
+                    {serverError && (
+                        <span className="error">{serverError}</span>
+                    )}
                     <span className="toggle-text" onClick={toggleForm}>
                         New here? Sign up below
                     </span>
@@ -137,6 +142,9 @@ const Login = (props) => {
                         id="sign-up-button"
                         onClick={handleSignUp}
                     />
+                    {serverError && (
+                        <span className="error">{serverError}</span>
+                    )}
                     <span className="toggle-text" onClick={toggleForm}>
                         Already have an account? Sign in
                     </span>
