@@ -168,6 +168,7 @@ const Home = (props) => {
                         deleteUser={(id) => deleteUser(id, "Waitlist")}
                         showFormForList={showFormForList}
                         showWhatsapp={true}
+                        iconName="clock"
                     />
                 )}
                 {showServing && (
@@ -194,6 +195,7 @@ const Home = (props) => {
                         deleteUser={(id) => deleteUser(id, "Serving")}
                         showFormForList={showFormForList}
                         showWhatsapp={true}
+                        iconName="loader"
                     />
                 )}
                 {showCompleted && (
@@ -220,6 +222,7 @@ const Home = (props) => {
                         deleteUser={(id) => deleteUser(id, "Completed")}
                         showFormForList={showFormForList}
                         showWhatsapp={true}
+                        iconName="check-square"
                     />
                 )}
                 {showSetting && (

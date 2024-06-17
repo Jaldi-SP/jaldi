@@ -6,16 +6,17 @@ import nextButton from "../../assets/next.png";
 import whatsappButton from "../../assets/whatsapp-icon.svg";
 import deleteButton from "../../assets/delete.svg";
 import NotificationModal from "../../Components/NotificationModal/NotificationModal";
+import Icon from "../../Components/Icon/Icon";
 
-const StatusList = (props) => {
-    let {
-        listName,
-        users,
-        changeStatus,
-        showFormForList,
-        showWhatsapp,
-        deleteUser,
-    } = props;
+const StatusList = ({
+    listName,
+    users,
+    changeStatus,
+    showFormForList,
+    showWhatsapp,
+    deleteUser,
+    iconName="home"
+}) => {
     const [userList, setUserList] = useState(users);
     const [showNotification, setShowNotification] = useState(false);
     const [notificationTitle, setNotificationTitle] = useState("");
@@ -30,12 +31,12 @@ const StatusList = (props) => {
             const res = await axios.post("/business/notify", {
                 whatsappTo: phone_number,
             });
-            setNotificationTitle("Message sent")
+            setNotificationTitle("Message sent");
             setNotificationMessage("Whatsapp message sent successfully");
             setShowNotification(true);
             console.log(res);
         } catch (err) {
-            setNotificationTitle("Something went wrong")
+            setNotificationTitle("Something went wrong");
             setNotificationMessage("Failed to send WhatsApp notification.");
             setShowNotification(true);
             console.log(err);
@@ -52,7 +53,9 @@ const StatusList = (props) => {
                 {userList.map((user, index) => (
                     <div className="user" key={index}>
                         <div className="user-info">
-                            <p>{user.first_name} {user.last_name}</p>
+                            <p>
+                                {user.first_name} {user.last_name}
+                            </p>
                             <label>{user.phone_number}</label>
                         </div>
                         <div className="button-tray">
@@ -112,7 +115,10 @@ const StatusList = (props) => {
     return (
         <div className="status-list-container">
             <div className="status-list-header">
-                <h3>{listName}</h3>
+                <div className="header-icon-text">
+                    <Icon name={iconName} size={24} color="black" />
+                    <h3>{listName}</h3>
+                </div>
                 <button
                     className="add-to-list-button"
                     onClick={() => showFormForList(listName)}
