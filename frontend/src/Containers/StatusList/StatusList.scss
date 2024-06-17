@@ -55,6 +55,20 @@
                 height: 60px;
                 padding: 0px 20px;
     
+                .user-info {
+                    height: 32px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    p {
+                        margin: 0;
+                    }
+                    label {
+                        font-size: 0.9rem;
+                        color: gray;
+                    }
+                }
+
                 .button-tray {
                     display: flex;
                     justify-content: space-between;
@@ -128,6 +142,20 @@
                 height: 60px;
                 min-width: 300px;
                 padding: 0 20px;
+                
+                .user-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    p {
+                        margin: 0;
+                    }
+                    label {
+                        font-size: 0.9rem;
+                        color: gray;
+                    }
+                }
+                
                 .button-tray {
                     display: flex;
                     justify-content: space-between;

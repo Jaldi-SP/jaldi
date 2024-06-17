@@ -7,7 +7,6 @@ import whatsappButton from "../../assets/whatsapp-icon.svg";
 import deleteButton from "../../assets/delete.svg";
 import NotificationModal from "../../Components/NotificationModal/NotificationModal";
 
-
 const StatusList = (props) => {
     let {
         listName,
@@ -52,9 +51,10 @@ const StatusList = (props) => {
             <div>
                 {userList.map((user, index) => (
                     <div className="user" key={index}>
-                        <p>
-                            {user.first_name} {user.last_name}
-                        </p>
+                        <div className="user-info">
+                            <p>{user.first_name} {user.last_name}</p>
+                            <label>{user.phone_number}</label>
+                        </div>
                         <div className="button-tray">
                             {showWhatsapp && (
                                 <button
