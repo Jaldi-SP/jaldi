@@ -42,57 +42,54 @@ app.use(
     }),
 )
 
-const runSeedScript = async (db) => {
+const runSeedScript = async (db, tables) => {
     try {
-        const checkTablesPath = path.join(
-            __dirname,
-            'db',
-            'seed',
-            'checkTables.sql',
-        )
-        const checkTablesQuery = fs.readFileSync(checkTablesPath, 'utf-8')
+        const checkTablesPath = path.join(__dirname, 'db', 'seed', 'checkTables.sql');
+        const checkTablesQuery = fs.readFileSync(checkTablesPath, 'utf-8');
 
-        const createBusinessesPath = path.join(
-            __dirname,
-            'db',
-            'seed',
-            'createBusinesses.sql',
-        )
-        const createCustomersPath = path.join(
-            __dirname,
-            'db',
-            'seed',
-            'createCustomers.sql',
-        )
-
-        const result = await db.query(checkTablesQuery)
-        const { businesses_exists, customers_exists } = result[0]
-
-        if (!businesses_exists) {
-            const createBusinessesQuery = fs.readFileSync(
-                createBusinessesPath,
-                'utf-8',
-            )
-            await db.query(createBusinessesQuery)
-            console.log('Businesses table created successfully.')
-        } else {
-            console.log('Businesses table already exists.')
+        const result = await db.query(checkTablesQuery);
+        console.log(result[0]);
+        if (!result || !result[0]) {
+            throw new Error('Unexpected result structure from database query');
         }
+        const tableStatus = result[0];
 
-        if (!customers_exists) {
-            const createCustomersQuery = fs.readFileSync(
-                createCustomersPath,
-                'utf-8',
-            )
-            await db.query(createCustomersQuery)
-            console.log('Customers table created successfully.')
-        } else {
-            console.log('Customers table already exists.')
+        for (const table of tables) {
+            const { name, createQueryPath } = table;
+
+            if (!tableStatus[`${name}_exists`]) {
+                const createQuery = fs.readFileSync(createQueryPath, 'utf-8');
+                await db.query(createQuery);
+                console.log(`${name} table created successfully.`);
+            } else {
+                console.log(`${name} table already exists.`);
+            }
         }
     } catch (err) {
-        console.error('Error running seed script:', err)
+        console.error('Error running seed script:', err);
     }
-}
+};
+
+// Define tables with paths to create queries
+const tables = [
+    {
+        name: 'businesses',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createBusinesses.sql')
+    },
+    {
+        name: 'customers',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createCustomers.sql')
+    },
+    {
+        name: 'form_fields',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createFormFields.sql')
+    },
+    {
+        name: 'form_submissions',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createFormSubmissions.sql')
+    },
+    // Add more tables as needed
+];
 
 // // // // DATABASE/SERVER SETUP // // // //
 
@@ -101,7 +98,7 @@ massive(CONNECTION_STRING)
         app.set('db', db)
         console.log('Database Connected')
 
-        await runSeedScript(db)
+        await runSeedScript(db, tables)
 
         app.listen(SERVER_PORT, () => {
             console.log(`Server running on port ${SERVER_PORT}`)
@@ -128,5 +125,5 @@ app.use(`/customer`, customerRouter)
 // // // // BUSINESS INFO CONTROLLER // // //
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-  });
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'))
+})

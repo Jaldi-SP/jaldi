@@ -1,8 +1,25 @@
-SELECT EXISTS (
-    SELECT FROM pg_tables
-    WHERE schemaname = 'public' AND tablename = 'businesses'
-) AS businesses_exists,
-EXISTS (
-    SELECT FROM pg_tables
-    WHERE schemaname = 'public' AND tablename = 'customers'
-) AS customers_exists;
+SELECT
+  EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'businesses'
+  ) AS businesses_exists,
+  EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'customers'
+  ) AS customers_exists,
+  EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'form_fields'
+  ) AS form_fields_exists,
+  EXISTS (
+    SELECT 1
+    FROM information_schema.tables
+    WHERE table_schema = 'public'
+      AND table_name = 'form_submissions'
+  ) AS form_submissions_exists;
