@@ -9,6 +9,7 @@ const NavBar = ({
     setShowCompleted,
     setShowInvalid,
     setShowSetting,
+    setShowCustomerDirectory
 }) => {
     const logout = async () => {
         try {
@@ -31,6 +32,7 @@ const NavBar = ({
                         setShowCompleted(true);
                         setShowInvalid(false);
                         setShowSetting(false);
+                        setShowCustomerDirectory(false);
                     }}
                 >
                     <Icon name="home" size={30} color="#13293dff" />
@@ -44,6 +46,7 @@ const NavBar = ({
                         setShowCompleted(false);
                         setShowInvalid(false);
                         setShowSetting(false);
+                        setShowCustomerDirectory(false);
                     }}
                 >
                     <Icon name="clock" size={30} color="#13293dff" />
@@ -57,6 +60,7 @@ const NavBar = ({
                         setShowCompleted(false);
                         setShowInvalid(false);
                         setShowSetting(false);
+                        setShowCustomerDirectory(false);
                     }}
                 >
                     <Icon name="loader" size={30} color="#13293dff" />
@@ -70,9 +74,24 @@ const NavBar = ({
                         setShowCompleted(true);
                         setShowInvalid(false);
                         setShowSetting(false);
+                        setShowCustomerDirectory(false);
                     }}
                 >
                     <Icon name="check-square" size={30} color="#13293dff" />
+                </button>
+                <button
+                    title="Directory"
+                    className="icon"
+                    onClick={() => {
+                        setShowWaitlist(false);
+                        setShowServing(false);
+                        setShowCompleted(false);
+                        setShowInvalid(false);
+                        setShowSetting(false);
+                        setShowCustomerDirectory(true);
+                    }}
+                >
+                    <Icon name="user" size={30} color="#13293dff" />
                 </button>
                 <button
                     title="Settings"
@@ -83,6 +102,7 @@ const NavBar = ({
                         setShowCompleted(false);
                         setShowInvalid(false);
                         setShowSetting(true);
+                        setShowCustomerDirectory(false);
                     }}
                 >
                     <Icon name="settings" size={30} color="#13293dff" />

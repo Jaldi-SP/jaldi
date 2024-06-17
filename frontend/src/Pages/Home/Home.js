@@ -4,6 +4,7 @@ import StatusList from "../../Containers/StatusList/StatusList";
 import "./Home.scss";
 import AddCustomerForm from "../../Components/AddCustomerForm/AddCustomerForm";
 import QRCodeComponent from "../../Components/QrCode/QrCode";
+import CustomerDirectory from "../../Components/CustomerDirectory/CustomerDirectory";
 
 const Home = (props) => {
     const {
@@ -14,6 +15,7 @@ const Home = (props) => {
         showCompleted,
         showInvalid,
         showSetting,
+        showCustomerDirectory,
     } = props;
     const [showForm, setShowForm] = useState(false);
     const [showingFormFor, setShowingFormFor] = useState("");
@@ -222,7 +224,19 @@ const Home = (props) => {
                 )}
                 {showSetting && (
                     <div>
-                        <QRCodeComponent/>
+                        <QRCodeComponent />
+                    </div>
+                )}
+                {showCustomerDirectory && (
+                    <div className="directory-container">
+                        <CustomerDirectory
+                            allCustomers={[
+                                ...waitlist,
+                                ...serving,
+                                ...completed,
+                                ...inactive,
+                            ]}
+                        />
                     </div>
                 )}
             </div>

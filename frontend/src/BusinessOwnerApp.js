@@ -13,7 +13,7 @@ function BusinessOwnerApp() {
     const [showCompleted, setShowCompleted] = useState(true);
     const [showInvalid, setShowInvalid] = useState(false);
     const [showSetting, setShowSetting] = useState(false);
-
+    const [showCustomerDirectory, setShowCustomerDirectory] = useState(false);
 
     useEffect(() => {
         const checkViewportWidth = () => {
@@ -23,22 +23,24 @@ function BusinessOwnerApp() {
                 setShowCompleted(false);
                 setShowInvalid(false);
                 setShowSetting(false);
+                setShowCustomerDirectory(false);
             } else {
                 setShowWaitlist(true);
                 setShowServing(true);
                 setShowCompleted(true);
                 setShowInvalid(false);
                 setShowSetting(false);
+                setShowCustomerDirectory(false);
             }
         };
 
         checkViewportWidth();
 
         // Optionally, you can add an event listener to update the state on window resize
-        window.addEventListener('resize', checkViewportWidth);
+        window.addEventListener("resize", checkViewportWidth);
 
         // Cleanup the event listener on component unmount
-        return () => window.removeEventListener('resize', checkViewportWidth);
+        return () => window.removeEventListener("resize", checkViewportWidth);
     }, [authenticated]);
 
     useEffect(() => {
@@ -49,7 +51,7 @@ function BusinessOwnerApp() {
                 setAuthenticated(true);
             } catch (err) {
                 if (err.response.status == 401) {
-                    console.log("Unauthorized")
+                    console.log("Unauthorized");
                 } else {
                     console.error("Error checking user authentication:", err);
                 }
@@ -68,7 +70,8 @@ function BusinessOwnerApp() {
                         setShowServing={setShowServing}
                         setShowCompleted={setShowCompleted}
                         setShowInvalid={setShowInvalid}
-                        setShowSetting = {setShowSetting}
+                        setShowSetting={setShowSetting}
+                        setShowCustomerDirectory={setShowCustomerDirectory}
                     />
                 </div>
                 <Home
@@ -79,6 +82,7 @@ function BusinessOwnerApp() {
                     showCompleted={showCompleted}
                     showInvalid={showInvalid}
                     showSetting={showSetting}
+                    showCustomerDirectory={showCustomerDirectory}
                 />
             </div>
         );
