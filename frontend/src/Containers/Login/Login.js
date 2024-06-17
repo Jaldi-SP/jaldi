@@ -91,15 +91,15 @@ const Login = (props) => {
                         id="sign-in-button"
                         onClick={handleLogin}
                     />
-                    {serverError && (
-                        <span className="error">{serverError}</span>
-                    )}
                     <br />
                     <ActionButton
                         label="New here? Click here to sign up"
                         id="toggle-form"
                         onClick={toggleForm}
                     />
+                    {serverError && (
+                        <span className="error">{serverError}</span>
+                    )}
                 </div>
             ) : (
                 <div className="signup-form">

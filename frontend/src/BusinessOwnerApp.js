@@ -45,11 +45,14 @@ function BusinessOwnerApp() {
         const checkUserAuthentication = async () => {
             try {
                 const res = await axios.get("/auth/getUser");
-                console.log(res);
                 setCompanyName(res.data.name);
                 setAuthenticated(true);
-            } catch (error) {
-                console.error("Error checking user authentication:", error);
+            } catch (err) {
+                if (err.response.status == 401) {
+                    console.log("Unauthorized")
+                } else {
+                    console.error("Error checking user authentication:", err);
+                }
             }
         };
         checkUserAuthentication();
