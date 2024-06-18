@@ -29,7 +29,7 @@ const CustomerDirectory = ({ allCustomers }) => {
     return (
         <div>
             <Button variant="contained" color="primary" onClick={exportToCSV}>
-                Export to CSV
+                Download directory
             </Button>
             <TableContainer component={Paper} sx={{ height: '80vh' }}>
                 <Table>
