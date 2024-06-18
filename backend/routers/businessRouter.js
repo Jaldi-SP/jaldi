@@ -38,6 +38,21 @@ businessRouter
             }
 
             const customer = customerSerializer.parse(req.body)
+            const requiredFields = [
+                { key: 'first_name', label: 'First Name' },
+                { key: 'last_name', label: 'Last Name' },
+                { key: 'phone_number', label: 'Phone Number' }
+            ]
+        
+            const missingFields = requiredFields
+                .filter((field) => !customer[field.key])
+                .map((field) => field.label)
+        
+            if (missingFields.length > 0) {
+                return res
+                    .status(422)
+                    .send(`Missing field(s): ${missingFields.join(', ')}`)
+            }
 
             if (!Object.values(StatusEnum).includes(customer.status)) {
                 return res.status(400).send('Invalid status provided.')
