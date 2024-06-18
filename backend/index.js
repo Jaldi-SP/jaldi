@@ -88,7 +88,18 @@ const tables = [
         name: 'form_submissions',
         createQueryPath: path.join(__dirname, 'db', 'seed', 'createFormSubmissions.sql')
     },
-    // Add more tables as needed
+    {
+        name: 'business_form_fields',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createBusinessFormFields.sql')
+    },
+    {
+        name: 'resources',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createResources.sql')
+    },
+    {
+        name: 'services',
+        createQueryPath: path.join(__dirname, 'db', 'seed', 'createServices.sql')
+    },
 ];
 
 // // // // DATABASE/SERVER SETUP // // // //
