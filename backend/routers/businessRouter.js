@@ -183,6 +183,15 @@ businessRouter.use(
     },
     resourceRouter,
 )
+const serviceRouter = require('./business/serviceRouter');
+businessRouter.use(
+    '/service',
+    (req, res, next) => {
+        req.businessId = req.params.businessId
+        next()
+    },
+    serviceRouter,
+)
 
 businessRouter.post('/notify', (req, res) => {
     const accountSid = process.env.TWILIO_ACCOUNT_SID
