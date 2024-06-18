@@ -11,6 +11,7 @@ const AddCustomerForm = (props) => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [animationClass, setAnimationClass] = useState("");
     const [display, setDisplay] = useState("none");
+    const [serverError, setServerError] = useState("");
 
     const { listName, showForm, setShowForm, refreshBusinessInfo } = props;
 
@@ -19,10 +20,9 @@ const AddCustomerForm = (props) => {
             setDisplay("block");
             setTimeout(() => setAnimationClass("slide-in"), 10); // Small delay to ensure the display change is registered
         } else if (showForm) {
-            setDisplay("block")
+            setDisplay("block");
             setTimeout(() => setAnimationClass("slide-in-full"), 10);
-        }
-        else {
+        } else {
             setAnimationClass("slide-out");
             setTimeout(() => setDisplay("none"), 500); // Matches the duration of the transition
         }
@@ -47,14 +47,16 @@ const AddCustomerForm = (props) => {
             setPhoneNumber("");
             setShowForm(false);
             refreshBusinessInfo();
-
         } catch (err) {
-            console.log(err);
+            setServerError(err.response.data);
         }
     };
 
     return (
-        <div className={`add-customer-form ${animationClass}`} style={{ display }}>
+        <div
+            className={`add-customer-form ${animationClass}`}
+            style={{ display }}
+        >
             <div className="header">
                 <h1>{"Add to " + listName}</h1>
             </div>
@@ -81,6 +83,7 @@ const AddCustomerForm = (props) => {
                     placeholder={"Enter Phone Number"}
                     prefix="+91"
                 />
+                {serverError && <span className="error">{serverError}</span>}
             </div>
             <div className="button-tray">
                 <ActionButton

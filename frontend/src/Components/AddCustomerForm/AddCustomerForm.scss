@@ -1,4 +1,4 @@
-@import './../../variables.scss';
+@import "./../../variables.scss";
 
 .add-customer-form {
     background-color: $white;
@@ -29,14 +29,18 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
         h1 {
             font-size: large;
         }
     }
-    
+
     .body {
         padding: 4%;
+        .error {
+            color: red;
+            font-size: 12px;
+        }
     }
 
     .button-tray {
