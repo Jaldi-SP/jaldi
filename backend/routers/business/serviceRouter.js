@@ -40,6 +40,7 @@ servicesRouter
                 user.id,
                 service.name,
                 service.description,
+                service.duration,
             );
 
             res.status(201).send(insertedService);
@@ -61,6 +62,7 @@ servicesRouter
             const updatedService = await db.business.service.updateService(
                 service.name,
                 service.description,
+                service.duration,
                 service.id,
                 user.id,
             );
