@@ -176,7 +176,7 @@ businessRouter
 
 const resourceRouter = require('./business/resourceRouter');
 businessRouter.use(
-    '/:businessId/resource',
+    '/resource',
     (req, res, next) => {
         req.businessId = req.params.businessId
         next()

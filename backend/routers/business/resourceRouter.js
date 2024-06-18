@@ -1,101 +1,103 @@
-const express = require('express');
-const resourceRouter = express.Router();
-const { v4: uuidv4 } = require('uuid');
+const express = require('express')
+const resourceRouter = express.Router()
+const { v4: uuidv4 } = require('uuid')
+const { TypedJSON } = require('typedjson')
+const { Resource } = require('../../dist/models/resource') // Ensure the path is correct
+const resourceSerializer = new TypedJSON(Resource)
 
-resourceRouter.use(express.urlencoded({ extended: true }));
-resourceRouter.use(express.json());
+resourceRouter.use(express.urlencoded({ extended: true }))
+resourceRouter.use(express.json())
 
 resourceRouter
     .route('/')
     .get(async (req, res) => {
         try {
-            const { user } = req.session;
+            const { user } = req.session
             if (!user) {
-                return res.redirect('../');
+                return res.status(401).send('Unauthorized')
             }
-            const db = req.app.get('db');
-            const resources = await db.resources.find({ business_id: user.id });
+            const db = req.app.get('db')
+            const resources = await db.business.resource.getResource(user.id)
 
-            res.status(200).send(resources);
+            res.status(200).send(resources)
         } catch (error) {
-            console.error('Error fetching resources:', error);
-            res.status(500).send({ error: 'Internal Server Error' });
+            console.error('Error fetching resources:', error)
+            res.status(500).send({ error: 'Internal Server Error' })
         }
     })
     .post(async (req, res) => {
         try {
-            const { user } = req.session;
+            const { user } = req.session
             if (!user) {
-                return res.status(401).send('Unauthorized');
+                return res.status(401).send('Unauthorized')
             }
 
-            const { name, description } = req.body;
-            const newResource = {
-                id: uuidv4(),
-                business_id: user.id,
-                name,
-                description
-            };
+            const resource = resourceSerializer.parse(req.body)
 
-            const db = req.app.get('db');
-            const insertedResource = await db.resources.insert(newResource);
+            const db = req.app.get('db')
+            const insertedResource = await db.business.resource.newResource(
+                uuidv4(),
+                user.id,
+                resource.name,
+                resource.description,
+            )
 
-            res.status(201).send(insertedResource);
+            res.status(201).send(insertedResource)
         } catch (error) {
-            console.error('Error adding new resource:', error);
-            res.status(500).send('Internal Server Error');
+            console.error('Error adding new resource:', error)
+            res.status(500).send('Internal Server Error')
         }
-    });
-
-resourceRouter
-    .route('/:id')
+    })
     .put(async (req, res) => {
         try {
-            const { user } = req.session;
+            const { user } = req.session
             if (!user) {
-                return res.status(401).send('Unauthorized');
+                return res.status(401).send('Unauthorized')
             }
 
-            const { id } = req.params;
-            const { name, description } = req.body;
+            const resource = resourceSerializer.parse(req.body)
 
-            const db = req.app.get('db');
-            const updatedResource = await db.resources.update(
-                { id, business_id: user.id },
-                { $set: { name, description } }
-            );
+            const db = req.app.get('db')
+            const updatedResource = await db.business.resource.updateResource(
+                resource.name,
+                resource.description,
+                resource.id,
+                user.id,
+            )
 
             if (updatedResource.length === 0) {
-                return res.status(404).send('Resource not found');
+                return res.status(404).send('Resource not found')
             }
 
-            res.status(200).send(updatedResource[0]);
+            res.status(200).send(updatedResource[0])
         } catch (error) {
-            console.error('Error updating resource:', error);
-            res.status(500).send('Internal Server Error');
+            console.error('Error updating resource:', error)
+            res.status(500).send('Internal Server Error')
         }
     })
     .delete(async (req, res) => {
         try {
-            const { user } = req.session;
+            const { user } = req.session
             if (!user) {
-                return res.status(401).send('Unauthorized');
+                return res.status(401).send('Unauthorized')
             }
+            const resource = resourceSerializer.parse(req.body)
 
-            const { id } = req.params;
-
-            const db = req.app.get('db');
-            const deletedResource = await db.resources.remove({ id, business_id: user.id });
+            const db = req.app.get('db')
+            const deletedResource = await db.business.resource.deleteResource(
+                resource.id,
+                user.id,
+            )
 
             if (deletedResource.length === 0) {
-                return res.status(404).send('Resource not found');
+                return res.status(404).send('Resource not found')
             }
 
-            res.status(200).send('Resource deleted successfully');
+            res.status(200).send('Resource deleted successfully')
         } catch (error) {
-            console.error('Error deleting resource:', error);
-            res.status(500).send('Internal Server Error');
+            console.error('Error deleting resource:', error)
+            res.status(500).send('Internal Server Error')
         }
-    });
+    })
 
-module.exports = resourceRouter;
+module.exports = resourceRouter
