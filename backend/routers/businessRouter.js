@@ -178,7 +178,6 @@ const resourceRouter = require('./business/resourceRouter');
 businessRouter.use(
     '/resource',
     (req, res, next) => {
-        req.businessId = req.params.businessId
         next()
     },
     resourceRouter,
@@ -187,10 +186,17 @@ const serviceRouter = require('./business/serviceRouter');
 businessRouter.use(
     '/service',
     (req, res, next) => {
-        req.businessId = req.params.businessId
         next()
     },
     serviceRouter,
+)
+const formRouter = require('./business/formRouter');
+businessRouter.use(
+    '/form',
+    (req, res, next) => {
+        next()
+    },
+    formRouter,
 )
 
 businessRouter.post('/notify', (req, res) => {
