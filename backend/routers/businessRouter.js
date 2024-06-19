@@ -22,7 +22,7 @@ businessRouter
             }
             const db = req.app.get('db')
             const users = await db.business.getCustomers(user.id)
-            const statusLists = initializeStatusLists(users);
+            const statusLists = initializeStatusLists(users)
 
             res.status(200).send(statusLists)
         } catch (error) {
@@ -173,6 +173,31 @@ businessRouter
             return res.status(500).send('Internal Server Error')
         }
     })
+
+const resourceRouter = require('./business/resourceRouter');
+businessRouter.use(
+    '/resource',
+    (req, res, next) => {
+        next()
+    },
+    resourceRouter,
+)
+const serviceRouter = require('./business/serviceRouter');
+businessRouter.use(
+    '/service',
+    (req, res, next) => {
+        next()
+    },
+    serviceRouter,
+)
+const formRouter = require('./business/formRouter');
+businessRouter.use(
+    '/form',
+    (req, res, next) => {
+        next()
+    },
+    formRouter,
+)
 
 businessRouter.post('/notify', (req, res) => {
     const accountSid = process.env.TWILIO_ACCOUNT_SID
