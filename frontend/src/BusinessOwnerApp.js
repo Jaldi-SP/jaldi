@@ -50,7 +50,7 @@ function BusinessOwnerApp() {
                 setCompanyName(res.data.name);
                 setAuthenticated(true);
             } catch (err) {
-                if (err.response.status == 401) {
+                if (err.response.status === 401) {
                     console.log("Unauthorized");
                 } else {
                     console.error("Error checking user authentication:", err);
