@@ -1,34 +1,34 @@
 import {
   FaceSmileIcon,
   ChartBarSquareIcon,
-  CursorArrowRaysIcon,
+  UserGroupIcon,
   DevicePhoneMobileIcon,
   AdjustmentsHorizontalIcon,
   SunIcon,
 } from "@heroicons/react/24/solid";
 
-import benefitOneImg from "../../public/img/benefit-one.png";
+import benefitOneImg from "../../public/img/whatsapp.png";
 import benefitTwoImg from "../../public/img/benefit-two.png";
 
 const benefitOne = {
-  title: "Highlight your benefits",
-  desc: "You can use this space to highlight your first benefit or a feature of your product. It can also contain an image or Illustration like in the example along with some bullet points.",
+  title: "Give your employees superpowers",
+  desc: "Ezwait can track all your appointments, manage your walk-ins with a waitlist, and allow you to reach out to your customers",
   image: benefitOneImg,
   bullets: [
     {
-      title: "Understand your customers",
-      desc: "Then explain the first point breifly in one or two lines.",
-      icon: <FaceSmileIcon />,
+      title: "Set operations on autopilot",
+      desc: "Automate appointment confirmations, reminders, thank you messages, and get more feedback from your customers.",
+      icon: <AdjustmentsHorizontalIcon />,
     },
     {
-      title: "Improve acquisition",
-      desc: "Here you can add the next benefit point.",
+      title: "Get answers driven by data",
+      desc: "Ezwait answers your burning questions to make your business the best in class - know when your business is the busiest, what resources are being used, and where you can improve.",
       icon: <ChartBarSquareIcon />,
     },
     {
-      title: "Drive customer retention",
-      desc: "This will be your last bullet point in this section.",
-      icon: <CursorArrowRaysIcon />,
+      title: "Treat customers like family",
+      desc: "We build you a customer directory so you can make profiles for each customer, notify them on whatsapp, and run personalised marketing campaigns so they keep coming back for more. ",
+      icon: <UserGroupIcon />,
     },
   ],
 };
@@ -46,7 +46,7 @@ const benefitTwo = {
     {
       title: "Powered by Next.js & TailwindCSS",
       desc: "This template is powered by latest technologies and tools.",
-      icon: <AdjustmentsHorizontalIcon />,
+      icon: <FaceSmileIcon />,
     },
     {
       title: "Dark & Light Mode",
