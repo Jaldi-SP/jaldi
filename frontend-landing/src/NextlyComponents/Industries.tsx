@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@/NextlyComponents/Container";
-import { FaClinicMedical, FaUniversity, FaRegCalendarAlt, FaShoppingCart, FaLandmark, FaDollarSign, FaTableTennis } from "react-icons/fa";
+import { FaClinicMedical, FaUniversity, FaRegCalendarAlt, FaShoppingCart, FaDollarSign, FaTableTennis } from "react-icons/fa";
 
 const industries = [
   { name: "Healthcare", icon: FaClinicMedical },

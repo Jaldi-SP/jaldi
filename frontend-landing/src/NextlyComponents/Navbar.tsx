@@ -104,7 +104,7 @@ export const Navbar = () => {
 
                 <div className="hidden mr-3 space-x-4 lg:flex nav__item">
                     <Link
-                        href="/"
+                        href="https://ezwait.co/"
                         // onClick={() => {
                         //     setShowModal(true);
                         // }}
