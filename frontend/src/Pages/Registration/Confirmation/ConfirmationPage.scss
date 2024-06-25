@@ -73,6 +73,14 @@
   background-color: #3b00b3;
 }
 
+.actions .btn-red {
+  background-color: red;
+}
+
+.actions .btn-red:hover {
+  background-color: darkred;
+}
+
 .powered-by {
   margin-top: 20px;
   font-size: 0.875rem;

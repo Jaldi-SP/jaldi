@@ -76,20 +76,57 @@ const ConfirmationPage = () => {
                 <p>Stay on this page to get notified when it's your turn.</p>
                 <div className="line-info">
                     <div>
-                        <p>Place in line</p>
-                        <p>
-                            <strong>
-                                {customerDetails.position === 0
-                                    ? "Not in line"
-                                    : customerDetails.position}
-                            </strong>
-                        </p>
-                    </div>
-                    <div>
-                        <p>People currently waiting</p>
-                        <p>
-                            <strong>{businessDetails.waitingCount}</strong>
-                        </p>
+                        {customerDetails.position > 2 ? (
+                            <div>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "1.25rem",
+                                    }}
+                                >
+                                    Your position:
+                                </p>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "1.5rem",
+                                    }}
+                                >
+                                    <strong>{customerDetails.position}</strong>
+                                </p>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "1.25rem",
+                                    }}
+                                >
+                                    People currently waiting
+                                </p>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "1.5rem",
+                                    }}
+                                >
+                                    <strong>
+                                        {businessDetails.waitingCount}
+                                    </strong>
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <p
+                                    style={{
+                                        fontWeight: "bold",
+                                        fontSize: "1.25rem",
+                                    }}
+                                >
+                                    <strong>
+                                        Please approach {businessDetails.name}
+                                    </strong>
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="user-details">
@@ -103,14 +140,10 @@ const ConfirmationPage = () => {
                         <br />
                         {customerDetails.phone_number}
                     </p>
-                    <p>
-                        <strong>Note</strong>
-                        <br />
-                        Lorem ipsum dolor sit amet, consectetur
-                    </p>
                 </div>
                 <div className="actions">
-                    <button onClick={handleLeaveWaitlist}>
+                    <button>Done</button>
+                    <button onClick={handleLeaveWaitlist} className="btn-red">
                         Leave waitlist
                     </button>
                 </div>
