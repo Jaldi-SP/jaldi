@@ -71,7 +71,7 @@ export const Navbar = () => {
                                             </Link>
                                         ))}
                                         <Link
-                                            href="ezwait.co"
+                                            href="https://app.ezwait.co/"
                                             // onClick={() => {
                                             //     setShowModal(true);
                                             // }}

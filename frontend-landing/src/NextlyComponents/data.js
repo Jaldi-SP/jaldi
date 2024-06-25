@@ -11,8 +11,8 @@ import {
   CalendarDaysIcon
 } from "@heroicons/react/24/solid";
 
-import benefitOneImg from "../../public/img/whatsapp.png";
-import benefitTwoImg from "../../public/img/confirmation-shot.png";
+import benefitOneImg from "../../public/img/whatsapp.jpeg";
+import benefitTwoImg from "../../public/img/confirmation-shot.jpeg";
 
 const benefitOne = {
   title: "Give your employees superpowers",
