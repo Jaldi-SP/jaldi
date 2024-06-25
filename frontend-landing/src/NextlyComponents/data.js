@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 import benefitOneImg from "../../public/img/whatsapp.png";
-import benefitTwoImg from "../../public/img/benefit-two.png";
+import benefitTwoImg from "../../public/img/confirmation-shot.png";
 
 const benefitOne = {
   title: "Give your employees superpowers",
