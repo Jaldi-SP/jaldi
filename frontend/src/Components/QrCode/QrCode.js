@@ -11,7 +11,7 @@ const QRCodeComponent = () => {
       .then(response => response.json())
       .then(data => {
         const userId = data.id;
-        const generatedUrl = `https://ezwait.co/${userId}/customer`;
+        const generatedUrl = `https://app.ezwait.co/${userId}/customer`;
         setUrl(generatedUrl);
 
         // Generate the QR code
